@@ -1,0 +1,21 @@
+﻿<Window x:Class="educational_practice.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:educational_practice.ViewModels"
+        mc:Ignorable="d"
+        Title="AuthorizationWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <local:LoginViewModel/>
+    </Window.DataContext>
+    <Grid Margin="30" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Margin="30 10 30 0">
+            <TextBlock Text="Войдите в свой аккаунт" FontFamily="Arial Black" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold"/>
+            <TextBox Width="150" Text="{Binding Login}"  Margin="0 20 0 0" />
+            <PasswordBox Width="150" Name="password" Margin="0 20 0 0" PasswordChanged="PasswordBox_PasswordChanged" />
+            <Button Width="120" Command="{Binding LoginCommand}" Content="Войти" Margin="10,20,0,0"/>
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" />
+        </StackPanel>
+    </Grid>
+</Window>
