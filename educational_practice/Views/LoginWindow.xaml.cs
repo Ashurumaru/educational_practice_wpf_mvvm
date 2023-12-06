@@ -34,5 +34,10 @@ namespace educational_practice
             var passwordBox = (PasswordBox)sender;
             viewModel.Password = passwordBox.Password;
         }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

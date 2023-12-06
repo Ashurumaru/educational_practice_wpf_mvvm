@@ -5,17 +5,110 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:educational_practice.ViewModels"
         mc:Ignorable="d"
-        Title="AuthorizationWindow" Height="350" Width="525">
+        Title="authorization" Height="768" Width="1024"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:LoginViewModel/>
     </Window.DataContext>
-    <Grid Margin="30" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <StackPanel Margin="30 10 30 0">
-            <TextBlock Text="Войдите в свой аккаунт" FontFamily="Arial Black" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold"/>
-            <TextBox Width="150" Text="{Binding Login}"  Margin="0 20 0 0" />
-            <PasswordBox Width="150" Name="password" Margin="0 20 0 0" PasswordChanged="PasswordBox_PasswordChanged" />
-            <Button Width="120" Command="{Binding LoginCommand}" Content="Войти" Margin="10,20,0,0"/>
-            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" />
-        </StackPanel>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\ashura\Desktop\educational_practice\educational_practice\Images\godzho_satoru.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border MinWidth="250" MinHeight="300" MaxHeight="650" MaxWidth="550" Margin="15" VerticalAlignment="Center" Padding="30" CornerRadius="20">
+                <Border.Background>
+                    <SolidColorBrush Color="#BC2CD8" Opacity="0.5"/>
+                </Border.Background>
+                <Border.Effect>
+                    <BlurEffect Radius="6"/>
+                </Border.Effect>
+            </Border>
+            <Border MinWidth="250" Background="Transparent" MinHeight="300" MaxHeight="650" MaxWidth="550" Margin="15" VerticalAlignment="Center" Padding="30" CornerRadius="20">
+                <StackPanel>
+                    <TextBlock Text="Войдите в свой аккаунт" Margin="0 0 0 20" FontFamily="Montserrat" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold" Foreground="White"/>
+
+                    <TextBlock Text="Login" FontFamily="Montserrat" Foreground="White"/>
+
+                    <TextBox Width="200" Text="{Binding Login}" Margin="0 0 0 20" Height="30">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="FontFamily" Value="Montserrat"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="BorderBrush" Value="#462AD8"/>
+                                <Setter Property="Padding" Value="5"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                                                <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <TextBlock Text="Password" FontFamily="Montserrat" Foreground="White"/>
+
+                    <PasswordBox Width="200" Name="password" Margin="0 0 0 50" Height="30" PasswordChanged="PasswordBox_PasswordChanged">
+                        <PasswordBox.Style>
+                            <Style TargetType="PasswordBox">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="FontFamily" Value="Montserrat"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="BorderBrush" Value="#462AD8"/>
+                                <Setter Property="Padding" Value="5"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="PasswordBox">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                                                <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </PasswordBox.Style>
+                    </PasswordBox>
+
+                    <Button Content="SIGN IN" Command="{Binding LoginCommand}" Width="200" Height="30" Click="btnLogin_Click" RenderTransformOrigin="0.5,0.5">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#462AD8"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="FontFamily" Value="Montserrat"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="15">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#28AEED"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,10,0,0"/>
+                    <StackPanel.Effect>
+                        <DropShadowEffect BlurRadius="30" Color="#462AD8" ShadowDepth="0"/>
+                    </StackPanel.Effect>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
