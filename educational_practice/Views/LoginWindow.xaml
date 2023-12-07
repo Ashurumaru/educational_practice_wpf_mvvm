@@ -48,5 +48,11 @@
                 <Button Style="{StaticResource MaxMinButtonStyle}" x:Name="btn_minimize" Content="&#xE921;" Click="btn_minimize_Click"/>
             </DockPanel>
         </Grid>
+
+        <TextBlock Text="Github: Ashurumaru" Style="{StaticResource StandartText}" Margin="0 0 0 4" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" Opacity="0.5">
+            <TextBlock.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding OpenGitHubCommand}" />
+            </TextBlock.InputBindings>
+        </TextBlock>
     </Grid>
 </Window>

@@ -294,9 +294,9 @@
       <DependentUpon>ado.edmx</DependentUpon>
       <LastGenOutput>ado.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\cifrovoe_iskusstvo.png" />
     <Resource Include="Images\atmosfera-mir.jpg" />
     <Resource Include="Images\background.jpg" />
-    <Resource Include="Images\cifrovoe_iskusstvo.png" />
     <Resource Include="Images\cvetenie_vishni.jpg" />
     <Resource Include="Images\godzho_satoru.jpg" />
     <Resource Include="Images\neon-svet.jpg" />

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System.Diagnostics;
 using System.Data.Entity;
 using educational_practice.Models;
 using System.Data.SqlClient;
@@ -49,10 +50,12 @@ namespace educational_practice.ViewModels
         }
 
         public ICommand LoginCommand { get; private set; }
+        public ICommand OpenGitHubCommand { get; private set; }
 
         public LoginViewModel()
         {
             LoginCommand = new ViewModelCommand(LoginIn, CanLogin);
+            OpenGitHubCommand = new ViewModelCommand(OpenGitHub);
         }
 
         private bool CanLogin(object parameter)
@@ -86,6 +89,11 @@ namespace educational_practice.ViewModels
                 validUser = command.ExecuteScalar() == null ? false : true;
             }
             return validUser;
+        }
+
+        private void OpenGitHub(object parameter)
+        {
+            Process.Start("https://github.com/Ashurumaru");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
