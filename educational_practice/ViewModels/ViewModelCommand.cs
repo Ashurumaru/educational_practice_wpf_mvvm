@@ -17,6 +17,11 @@ namespace educational_practice.ViewModels
             execute = executeAction;
             canExecute = canExecuteAction;
         }
+        public ViewModelCommand(Action<object> executeAction)
+        {
+            execute = executeAction;
+            canExecute = null;
+        }
 
         public event EventHandler CanExecuteChanged
         {
@@ -35,5 +40,3 @@ namespace educational_practice.ViewModels
         }
     }
 }
-
-

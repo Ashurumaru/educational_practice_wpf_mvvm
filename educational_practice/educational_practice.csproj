@@ -294,6 +294,15 @@
       <DependentUpon>ado.edmx</DependentUpon>
       <LastGenOutput>ado.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\atmosfera-mir.jpg" />
+    <Resource Include="Images\background.jpg" />
+    <Resource Include="Images\cifrovoe_iskusstvo.png" />
+    <Resource Include="Images\cvetenie_vishni.jpg" />
+    <Resource Include="Images\godzho_satoru.jpg" />
+    <Resource Include="Images\neon-svet.jpg" />
+    <Resource Include="Images\priroda.jpg" />
+    <Resource Include="Images\prirodnyj_landshaft.jpg" />
+    <Resource Include="Images\vashe_imya-anime.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
