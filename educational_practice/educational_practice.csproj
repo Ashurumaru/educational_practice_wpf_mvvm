@@ -240,10 +240,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\resources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

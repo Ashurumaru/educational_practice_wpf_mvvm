@@ -23,10 +23,5 @@ namespace educational_practice.Views
         {
             InitializeComponent();
         }
-
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
