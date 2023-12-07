@@ -3,83 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:educational_practice.Views"
+        xmlns:local="clr-namespace:educational_practice.ViewModels"
         mc:Ignorable="d"
         Title="Window" Height="450" Width="800">
+    <Window.DataContext>
+        <local:LoginViewModel/>
+    </Window.DataContext>
     <Grid>
-        <Grid x:Name="MyGrid"  Background="#FFE873">
-            <Border MinWidth="400" MaxWidth="550" Margin="15" Background="White" VerticalAlignment="Center" Padding="30" CornerRadius="20">
+        <Grid  Background="#FFE873">
+            <Border Width="550" Margin="15" Background="White" VerticalAlignment="Center" Padding="30" CornerRadius="20">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>
                 </Border.Effect>
                 <StackPanel>
                     <TextBlock Text="Кабинет пользователя" FontSize="30" FontWeight="Bold" Margin="0 0 0 20"/>
-                    <ListView x:Name="listOfUsers" Margin="10">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <WrapPanel>
-                                    <TextBlock Text="{Binding Login}" FontWeight="Bold" />
-                                    <TextBlock Text=", " />
-                                    <TextBlock Text="{Binding Email}" />
-
-                                </WrapPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-
-
-
-
+                    <Button  Click="btnExit_Click" Content="Выйти" Margin="10,20,0,0" Width="200"/>
                 </StackPanel>
             </Border>
         </Grid>
-        <!--<StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-            <TextBlock Text="Login"
-                       FontSize="24"/>
-            <TextBox x:Name="TBLogin"
-                     Width="300"
-                     FontSize="24"
-                     MaxLength="50"/>
-            <TextBlock Text="Password"
-                       FontSize="24" />
-            <PasswordBox x:Name="PBPassword"
-                     MaxLength="50"
-                     FontSize="24"/>
-            <StackPanel Orientation="Horizontal">
-                <CheckBox Name="CheckBoxRememberMe" 
-                          VerticalAlignment="Center"
-                          FontSize="24"
-                          Margin="0,0,5,0"/>
-                <TextBlock Text="Remember me" 
-                           VerticalAlignment="Center"
-                           FontSize="24"
-                           Margin="0,0,0,4"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="BLogin"
-                        Content="Login"
-                        FontSize="24" 
-                        Margin="0,0,20,0"
-                        Width="140"
-                        Click="BLogin_Click"
-                        Background="#42aaff"
-                        BorderBrush="Black"/>
-                <Button x:Name="BCancel"
-                        Content="Cancel"
-                        FontSize="24"
-                        Width="140"
-                        Click="BCancel_Click"
-                        Background="White"
-                        BorderBrush="Black" />
-            </StackPanel>
-        </StackPanel>-->
-        
-        
-        <!--<StackPanel>
-            <TextBlock Text="{Binding UserAuth}"/>
-            <TextBlock Text="{Binding UserRole}"/>
-            <Button  Command="{Binding LogoutCmd}" Content="Выйти" Margin="10,20,0,0" Width="180"/>
-        </StackPanel>-->
     </Grid>
 </Window>
