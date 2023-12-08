@@ -13,29 +13,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace educational_practice
+namespace educational_practice.Views
 {
     /// <summary>
-    /// Логика взаимодействия для LoginWindow.xaml
+    /// Логика взаимодействия для PersonalAccountForm.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class PersonalAccountForm : Window
     {
-        private LoginViewModel viewModel;
         private bool dragging = false;
-        public static Window ActivatedWindow;
-
-        public LoginWindow()
+        private PersonalAccountViewModel viewModel;
+        public PersonalAccountForm()
         {
             InitializeComponent();
-            viewModel = new LoginViewModel();
+            Loaded += PersonalAccountForm_Load;
+            viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
-            ActivatedWindow = this;
         }
 
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        private void PersonalAccountForm_Load(object sender, EventArgs e)
         {
-            var passwordBox = (PasswordBox)sender;
-            viewModel.Password = passwordBox.Password;
+
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)

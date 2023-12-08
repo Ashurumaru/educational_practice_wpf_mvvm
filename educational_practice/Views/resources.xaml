@@ -13,7 +13,7 @@
         <GradientStop Color="#DA34AE" Offset="0.75"/>
         <GradientStop Color="#8A16C1" Offset="1"/>
     </LinearGradientBrush>
-    
+
     <ImageBrush x:Key="BackgroundBrush" ImageSource="\Images\cifrovoe_iskusstvo.png" Stretch="UniformToFill"/>
 
     <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
@@ -93,7 +93,7 @@
         <Setter Property="Foreground" Value="#deabf5"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="FontWeight" Value="Black"/>
-        <Setter Property="Margin" Value="10 0 0 5"/> 
+        <Setter Property="Margin" Value="10 0 0 5"/>
     </Style>
 
     <Style x:Key="ErrorText" TargetType="{x:Type TextBlock}">
@@ -109,7 +109,7 @@
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="10"/>
-        <Setter Property="Opacity" Value="0.6"/>
+        <Setter Property="Opacity" Value="0.1"/>
         <Setter Property="Margin" Value="0,0,0,0"/>
         <Setter Property="Width" Value="45"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -119,7 +119,7 @@
                 <EventTrigger.Actions>
                     <BeginStoryboard>
                         <Storyboard TargetProperty="Opacity" FillBehavior="HoldEnd">
-                            <DoubleAnimation To="1.0" Duration="0:0:0.2" />
+                            <DoubleAnimation To="1" Duration="0:0:0.2" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger.Actions>
@@ -128,7 +128,7 @@
                 <EventTrigger.Actions>
                     <BeginStoryboard>
                         <Storyboard TargetProperty="Opacity" FillBehavior="HoldEnd">
-                            <DoubleAnimation To="0.6" Duration="0:0:0.2" />
+                            <DoubleAnimation To="0.5" Duration="0:0:0.2" />
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger.Actions>
@@ -162,5 +162,60 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Focusable" Value="False"/>
+    </Style>
+
+    <Style x:Key="TabControlStyle" TargetType="{x:Type TabControl}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TabStripPlacement" Value="Top"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Height" Value="360"/>
+        <Setter Property="MaxHeight" Value="650"/>
+        <Setter Property="MaxWidth" Value="550"/>
+        <Setter Property="Margin" Value="15"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="30"/>
+    </Style>
+
+    <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Opacity" Value="0.5"/>
+        <Setter Property="Width" Value="77"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid>
+                        <Border Name="Border" BorderBrush="Transparent" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="ContentSite"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          ContentSource="Header"
+                                          Margin="10,2"/>
+                        </Border>
+                        <Border x:Name="SelectedUnderline" BorderBrush="#deabf5" BorderThickness="0,0,0,2" CornerRadius="2,2,0,0" Visibility="Collapsed"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                            <Setter Property="Opacity" Value="1"/>
+                            <Setter TargetName="SelectedUnderline" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SignInTabItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}">
+        <Setter Property="FontFamily" Value="Dhurjati"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="#deabf5"/>
+    </Style>
+
+    <Style x:Key="SignUpTabItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}">
+        <Setter Property="FontFamily" Value="Dhurjati"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="#deabf5"/>
     </Style>
 </ResourceDictionary>

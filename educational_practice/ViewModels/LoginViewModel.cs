@@ -14,11 +14,14 @@ using System.Data;
 
 namespace educational_practice.ViewModels
 {
-    internal class LoginViewModel : INotifyPropertyChanged
+    internal class LoginViewModel : BaseViewModel
     {
         private string login;
         private string password;
         private string errorMessage;
+        private string firstName;
+        private string lastName;
+        private string middleName;
         public string Login
         {
             get => login;
@@ -49,13 +52,57 @@ namespace educational_practice.ViewModels
             }
         }
 
+        public string FirstName
+        {
+            get => firstName;
+            set
+            {
+                firstName = value;
+                OnPropertyChanged(nameof(FirstName));
+            }
+        }
+
+        public string LastName
+        {
+            get => lastName;
+            set
+            {
+                lastName = value;
+                OnPropertyChanged(nameof(LastName));
+            }
+        }
+
+        public string MiddleName
+        {
+            get => middleName;
+            set
+            {
+                middleName = value;
+                OnPropertyChanged(nameof(MiddleName));
+            }
+        }
+
         public ICommand LoginCommand { get; private set; }
+        public ICommand SignUpContinueCommand { get; private set; }
+        public ICommand SignUpCommand { get; private set; }
         public ICommand OpenGitHubCommand { get; private set; }
 
         public LoginViewModel()
         {
             LoginCommand = new ViewModelCommand(LoginIn, CanLogin);
+            //SignUpContinueCommand = new ViewModelCommand(LoginIn, CanSignUpContinue);
+            //SignUpCommand = new ViewModelCommand(LoginIn, CanSignUp);
             OpenGitHubCommand = new ViewModelCommand(OpenGitHub);
+        }
+
+        private bool CanSignUpContinue(object parameter)
+        {
+            return !string.IsNullOrWhiteSpace(Login) && Password != null && Password != null;
+        }
+
+        private bool CanSignUp(object parameter)
+        {
+            return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Login);
         }
 
         private bool CanLogin(object parameter)
@@ -67,7 +114,10 @@ namespace educational_practice.ViewModels
         {
             if (IsValidLogin(Login, Password))
             {
-                MessageBox.Show("Успешный вход!");
+                Views.PersonalAccountForm window = new Views.PersonalAccountForm();
+                window.Show();
+                Window ActivatedWindow = LoginWindow.ActivatedWindow;
+                ActivatedWindow.Close();
             }
             else
             {
@@ -94,13 +144,6 @@ namespace educational_practice.ViewModels
         private void OpenGitHub(object parameter)
         {
             Process.Start("https://github.com/Ashurumaru");
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
