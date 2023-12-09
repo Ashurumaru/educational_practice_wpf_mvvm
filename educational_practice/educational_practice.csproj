@@ -200,6 +200,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomControls\ChevronLeft.xaml.cs">
+      <DependentUpon>ChevronLeft.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataBaseConfig.cs" />
     <Compile Include="Models\DataBaseLogicModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -222,6 +225,10 @@
     <Compile Include="Views\PersonalAccountView.xaml.cs">
       <DependentUpon>PersonalAccountView.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomControls\ChevronLeft.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -187,7 +187,7 @@ namespace educational_practice.ViewModels
             }
         }
 
-        private void SwapVisibility()
+        public void SwapVisibility()
         {
             FirstStackPanelVisibility = FirstStackPanelVisibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
             SecondStackPanelVisibility = SecondStackPanelVisibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;

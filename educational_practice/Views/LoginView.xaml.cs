@@ -59,7 +59,7 @@ namespace educational_practice.Views
             var passwordBox = (PasswordBox)sender;
             viewModel.SecondPasswordForSignUp = passwordBox.Password;
         }
-
+        
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -149,6 +149,15 @@ namespace educational_practice.Views
                 btn_maximize.Content = "\uE922";
                 titleBar.Height = 32;
             }
+        }
+
+        private void ChevronLeft_Click(object sender, MouseButtonEventArgs e)
+        {
+                viewModel.SwapVisibility();
+        }
+        private void ChevronLeft_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            viewModel.SwapVisibility();
         }
     }
 }

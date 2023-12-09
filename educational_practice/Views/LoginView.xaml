@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:educational_practice.ViewModels"
+        xmlns:custom="clr-namespace:educational_practice.CustomControls"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource LoginWindowStyle}">
@@ -39,26 +39,27 @@
                     <Grid Width="200" Height="320" >
                         <StackPanel Visibility="{Binding FirstStackPanelVisibility}">
                             <TextBlock Text="Sign up your account" Style="{StaticResource StandartText}" Margin="0 0 0 10" HorizontalAlignment="Center" FontSize="17"/>
-                            <TextBlock Text="Login" Style="{StaticResource StandartText}" FontSize="12" Opacity="0.7"/>
+                            <TextBlock Text="Login" Style="{StaticResource StandartText}" />
                             <TextBox Width="200" Text="{Binding Login}" Margin="0 0 0 10" Height="30" Style="{StaticResource TextBoxStyle}"/>
-                            <TextBlock Text="Password" Style="{StaticResource StandartText}" FontSize="12" Opacity="0.7"/>
+                            <TextBlock Text="Password" Style="{StaticResource StandartText}"/>
                             <PasswordBox Width="200"  Margin="0 0 0 10" Name="firstPasswordForSignUp" Height="30" PasswordChanged="PasswordBox2_PasswordChanged" Style="{StaticResource PasswordBoxStyle}"/>
-                            <TextBlock Text="Confirm password" Style="{StaticResource StandartText}" FontSize="12" Opacity="0.7"/>
+                            <TextBlock Text="Confirm password" Style="{StaticResource StandartText}" />
                             <PasswordBox Width="200"  Margin="0 0 0 16" Name="secondPasswordForSignUp" Height="30" PasswordChanged="PasswordBox3_PasswordChanged" Style="{StaticResource PasswordBoxStyle}"/>
                             <Button Content="Continue" Command="{Binding SignUpContinueCommand}" Width="200" Height="30" RenderTransformOrigin="0.5,0.5" Style="{StaticResource ButtonStyle}"/>
                             <TextBlock Text="{Binding ErrorMessage}" Style="{StaticResource StandartText}" FontSize="10" Background="#cb2821" Opacity="0.7"  Margin="0 8 0 0"/>
                         </StackPanel>
-                        <StackPanel Visibility="{Binding SecondStackPanelVisibility}">
+                        <StackPanel Visibility="{Binding SecondStackPanelVisibility}" Height="320" Margin="-20,0,-20,0" Width="240">
                             <TextBlock Text="Sign up your account" Style="{StaticResource StandartText}" Margin="0 0 0 10" HorizontalAlignment="Center" FontSize="17"/>
-                            <TextBlock Text="FirstName" Style="{StaticResource StandartText}" FontSize="12" Opacity="0.7"/>
+                            <TextBlock Text="FirstName" Style="{StaticResource StandartText}" Margin="35 0 0 5"/>
                             <TextBox Width="200" Text="{Binding FirstName}" Margin="0 0 0 10" Height="30" Style="{StaticResource TextBoxStyle}"/>
-                            <TextBlock Text="LastName" Style="{StaticResource StandartText}" FontSize="12" Opacity="0.7"/>
+                            <TextBlock Text="LastName" Style="{StaticResource StandartText}" Margin="35 0 0 5"/>
                             <TextBox Width="200" Text="{Binding LastName}" Margin="0 0 0 10" Height="30" Style="{StaticResource TextBoxStyle}"/>
-                            <TextBlock Text="MiddleName (optional)" Style="{StaticResource StandartText}" FontSize="12" Opacity="0.7"/>
-                            <TextBox Width="200" Text="{Binding MiddleName}" Margin="0 0 0 16" Height="30" Style="{StaticResource TextBoxStyle}"/>
+                            <TextBlock Text="MiddleName (optional)" Style="{StaticResource StandartText}" Margin="35 0 0 5"/>
+                            <TextBox Width="200" Text="{Binding MiddleName}" Margin="0 0 0 16"  Height="30" Style="{StaticResource TextBoxStyle}"/>
                             <Button Content="Continue" Command="{Binding SignUpCommand}" Width="200" Height="30" RenderTransformOrigin="0.5,0.5" Style="{StaticResource ButtonStyle}"/>
-                            <TextBlock Text="{Binding ErrorMessage}" Style="{StaticResource StandartText}" FontSize="10" Background="#cb2821" Opacity="0.7"  Margin="0 8 0 0"/>
+                            <TextBlock Text="{Binding ErrorMessage}" Style="{StaticResource ErrorText}" Background="#cb2821"  Margin="0 8 0 0"/>
                         </StackPanel>
+                        <custom:ChevronLeft Width="45" Height="45" Margin="145,0,0,255" MouseDown="ChevronLeft_Click" Visibility="{Binding SecondStackPanelVisibility}"/>
                     </Grid>
                 </TabItem>
             </TabControl>
