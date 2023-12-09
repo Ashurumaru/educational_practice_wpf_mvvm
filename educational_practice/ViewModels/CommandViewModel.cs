@@ -7,17 +7,17 @@ using System.Windows.Input;
 
 namespace educational_practice.ViewModels
 {
-    internal class ViewModelCommand : ICommand
+    internal class CommandViewModel : ICommand
     {
         private readonly Action<object> execute;
         private readonly Predicate<object> canExecute;
 
-        public ViewModelCommand(Action<object> executeAction, Predicate<object> canExecuteAction)
+        public CommandViewModel(Action<object> executeAction, Predicate<object> canExecuteAction)
         {
             execute = executeAction;
             canExecute = canExecuteAction;
         }
-        public ViewModelCommand(Action<object> executeAction)
+        public CommandViewModel(Action<object> executeAction)
         {
             execute = executeAction;
             canExecute = null;

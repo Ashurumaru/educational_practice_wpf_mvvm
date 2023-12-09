@@ -1,46 +1,45 @@
 ﻿using educational_practice.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace educational_practice
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginWindow.xaml
-    /// </summary>
     public partial class LoginWindow : Window
     {
-        private LoginViewModel viewModel;
         private bool dragging = false;
-        public static Window ActivatedWindow;
+        public static LoginWindow loginWindow;
+        private readonly LoginViewModel viewModel;
 
         public LoginWindow()
         {
             InitializeComponent();
+            loginWindow = this;
             viewModel = new LoginViewModel();
             DataContext = viewModel;
-            ActivatedWindow = this;
         }
 
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        private void PasswordBox1_PasswordChanged(object sender, RoutedEventArgs e)
         {
             var passwordBox = (PasswordBox)sender;
             viewModel.Password = passwordBox.Password;
         }
 
+        private void PasswordBox2_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var passwordBox = (PasswordBox)sender;
+            viewModel.FirstPasswordForSignUp = passwordBox.Password;
+        }
+
+        private void PasswordBox3_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var passwordBox = (PasswordBox)sender;
+            viewModel.SecondPasswordForSignUp = passwordBox.Password;
+        }
+
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).Close();
+            Application.Current.Shutdown();
         }
 
         private void btn_maximize_Click(object sender, RoutedEventArgs e)
@@ -60,6 +59,7 @@ namespace educational_practice
                 SwitchWindowState();
                 return;
             }
+
             if (Window.GetWindow(this).WindowState == WindowState.Maximized)
             {
                 return;
@@ -74,7 +74,6 @@ namespace educational_practice
         {
             dragging = false;
         }
-
 
         private void MaximizeWindow()
         {
@@ -110,6 +109,7 @@ namespace educational_practice
                 Window.GetWindow(this).Left = mousePosition.X - targetHorizontal;
                 Window.GetWindow(this).Top = mousePosition.Y - targetVertical;
             }
+
             if (e.LeftButton == MouseButtonState.Pressed) Window.GetWindow(this).DragMove();
             Window.GetWindow(this).WindowStyle = WindowStyle.SingleBorderWindow;
         }

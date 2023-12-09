@@ -200,30 +200,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ado.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ado.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ado.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ado.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ado.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ado.edmx</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\PersonalAccountViewModel.cs" />
+    <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AccessLevel.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelCommand.cs" />
+    <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="Views\PersonalAccountForm.xaml.cs">
       <DependentUpon>PersonalAccountForm.xaml</DependentUpon>
     </Compile>
@@ -262,13 +248,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="ado.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ado.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ado.edmx.diagram">
-      <DependentUpon>ado.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -279,16 +258,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ado.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ado.Context.cs</LastGenOutput>
-      <DependentUpon>ado.edmx</DependentUpon>
-    </Content>
-    <Content Include="ado.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ado.edmx</DependentUpon>
-      <LastGenOutput>ado.cs</LastGenOutput>
-    </Content>
     <Resource Include="Images\cifrovoe_iskusstvo.png" />
     <Resource Include="Images\atmosfera-mir.jpg" />
     <Resource Include="Images\background.jpg" />

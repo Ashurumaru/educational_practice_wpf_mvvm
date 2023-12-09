@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Security;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace educational_practice.Models
 {
-    internal class User
+    internal class UserModel
     {
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }

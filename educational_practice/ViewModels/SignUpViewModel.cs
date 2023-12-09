@@ -1,30 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Windows;
-using System.Diagnostics;
-using System.Data.Entity;
-using educational_practice.Models;
-using System.Data.SqlClient;
-using System.Data;
+using System.Windows.Input;
 
 namespace educational_practice.ViewModels
 {
-    internal class LoginViewModel : BaseViewModel
+    internal class SignUpViewModel : BaseViewModel
     {
-        readonly LoginWindow loginWindow = LoginWindow.loginWindow;
+        LoginWindow loginWindow = LoginWindow.loginWindow;
         private string login;
-        private string password;
         private string errorMessage;
         private string firstName;
         private string lastName;
-        private string middleName; 
+        private string middleName;
         private string firstPasswordForSignUp;
         private string secondPasswordForSignUp;
+
+        public string ErrorMessage
+        {
+            get => errorMessage;
+            set
+            {
+                errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
 
         public string Login
         {
@@ -36,23 +39,22 @@ namespace educational_practice.ViewModels
             }
         }
 
-        public string Password
+        public string FirstPasswordForSignUp
         {
-            get => password;
+            get => firstPasswordForSignUp;
             set
             {
-                password = value;
-                OnPropertyChanged(nameof(Password));
+                firstPasswordForSignUp = value;
+                OnPropertyChanged(nameof(FirstPasswordForSignUp));
             }
         }
-
-        public string ErrorMessage
+        public string SecondPasswordForSignUp
         {
-            get => errorMessage;
+            get => secondPasswordForSignUp;
             set
             {
-                errorMessage = value;
-                OnPropertyChanged(nameof(ErrorMessage));
+                secondPasswordForSignUp = value;
+                OnPropertyChanged(nameof(SecondPasswordForSignUp));
             }
         }
 
@@ -86,37 +88,14 @@ namespace educational_practice.ViewModels
             }
         }
 
-        public string FirstPasswordForSignUp
-        {
-            get => firstPasswordForSignUp;
-            set
-            {
-                firstPasswordForSignUp = value;
-                OnPropertyChanged(nameof(FirstPasswordForSignUp));
-            }
-        }
 
-        public string SecondPasswordForSignUp
-        {
-            get => secondPasswordForSignUp;
-            set
-            {
-                secondPasswordForSignUp = value;
-                OnPropertyChanged(nameof(SecondPasswordForSignUp));
-            }
-        }
-
-        public ICommand LoginCommand { get; private set; }
         public ICommand SignUpContinueCommand { get; private set; }
         public ICommand SignUpCommand { get; private set; }
-        public ICommand OpenGitHubCommand { get; private set; }
 
-        public LoginViewModel()
+        public SignUpViewModel()
         {
-            LoginCommand = new CommandViewModel(SignIn, CanSignIn);
             SignUpContinueCommand = new CommandViewModel(SignUpContinue, CanSignUpContinue);
             SignUpCommand = new CommandViewModel(SignUp, CanSignUp);
-            OpenGitHubCommand = new CommandViewModel(OpenGitHub);
         }
 
         private bool CanSignUpContinue(object parameter)
@@ -129,11 +108,6 @@ namespace educational_practice.ViewModels
             return !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName);
         }
 
-        private bool CanSignIn(object parameter)
-        {
-            return !string.IsNullOrWhiteSpace(Login) && Password != null;
-        }
-
         private bool CheckPassword()
         {
             bool passwordsMatch = FirstPasswordForSignUp == SecondPasswordForSignUp;
@@ -144,6 +118,16 @@ namespace educational_practice.ViewModels
             }
 
             return passwordsMatch;
+        }
+
+        private bool LoginExists(string login)
+        {
+            if (login == "admin")
+            {
+                ErrorMessage = "Такой пользователь уже существует";
+            }
+
+            return true;
         }
 
         private void SignUpContinue(object parameter)
@@ -172,51 +156,6 @@ namespace educational_practice.ViewModels
                 loginWindow.FirstStackPanel.Visibility = Visibility.Hidden;
                 loginWindow.SecondStackPanel.Visibility = Visibility.Visible;
             }
-        }
-
-        private void SignIn(object parameter)
-        {
-            if (IsValidLogin(Login, Password))
-            {
-                Views.PersonalAccountForm window = new Views.PersonalAccountForm();
-                window.Show();
-                loginWindow.Close();
-            }
-            else
-            {
-                ErrorMessage = "Неправильный логин или пароль";
-            }
-        }
-
-        private bool IsValidLogin(string login, string password)
-        {
-            bool validUser;
-            using (var connection = new SqlConnection("Data Source=DESKTOP-A83RV0A\\MSSQLSERVER04;Initial Catalog=mvvm_project;Integrated Security=True"))
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "select *from [User] where login=@Login and [password]=@Password";
-                command.Parameters.Add("@Login", SqlDbType.NVarChar).Value = login;
-                command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
-                validUser = command.ExecuteScalar() == null ? false : true;
-            }
-            return validUser;
-        }
-
-        private bool LoginExists(string login)
-        {
-            if (login == "admin")
-            {
-                ErrorMessage = "Такой пользователь уже существует";
-            }
-
-            return true;
-        }
-
-        private void OpenGitHub(object parameter)
-        {
-            Process.Start("https://github.com/Ashurumaru");
         }
     }
 }
