@@ -58,7 +58,7 @@ namespace educational_practice.Models
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "INSERT INTO [User] (Login, Password, FirstName, LastName, MiddleName, AccessLevel) " +
-                                      "VALUES (@Login, @Password, @FirstName, @LastName, @MiddleName, 1)";
+                                      "VALUES (@Login, @Password, @FirstName, @LastName, @MiddleName, 0)";
                 command.Parameters.Add("@Login", SqlDbType.VarChar).Value = login;
                 command.Parameters.Add("@Password", SqlDbType.VarChar).Value = password;
                 command.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = firstName;

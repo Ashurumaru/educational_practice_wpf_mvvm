@@ -17,6 +17,6 @@ namespace educational_practice.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
-        public int AccessLevel { get; set; } //доработать
+        public int AccessLevel { get; set; } 
     }
 }

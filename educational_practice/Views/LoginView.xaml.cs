@@ -20,7 +20,6 @@ namespace educational_practice.Views
     /// </summary>
     public partial class LoginView : Window
     {
-        private bool dragging = false;
         public static LoginView loginWindow;
         private readonly LoginViewModel viewModel;
 
@@ -30,6 +29,17 @@ namespace educational_practice.Views
             loginWindow = this;
             viewModel = new LoginViewModel();
             DataContext = viewModel;
+            viewModel.MessageBoxShow += HandleMessageBox;
+        }
+
+        private void HandleMessageBox(object sender, string message)
+        {
+            MessageBoxViewModel messageBoxViewModel = new MessageBoxViewModel();
+            messageBoxViewModel.Message = message;
+
+            MessageBoxView messageBox = new MessageBoxView();
+            messageBox.DataContext = messageBoxViewModel;
+            messageBox.ShowDialog();
         }
 
         private void PasswordBox1_PasswordChanged(object sender, RoutedEventArgs e)
@@ -85,7 +95,7 @@ namespace educational_practice.Views
 
         private void DockPanel_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            dragging = false;
+            bool dragging = false;
         }
 
         private void MaximizeWindow()

@@ -17,7 +17,8 @@ namespace educational_practice.ViewModels
 {
     internal class LoginViewModel : BaseViewModel
     {
-        readonly DataBaseLogicModel dbLogic = new DataBaseLogicModel("Data Source=DESKTOP-A83RV0A\\MSSQLSERVER04;Initial Catalog=mvvm_project;Integrated Security=True");
+        public event EventHandler<string> MessageBoxShow;
+        readonly DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
         readonly LoginView loginWindow = LoginView.loginWindow;
         private string login;
         private string password;
@@ -27,6 +28,9 @@ namespace educational_practice.ViewModels
         private string middleName; 
         private string firstPasswordForSignUp;
         private string secondPasswordForSignUp;
+        private Visibility firstStackPanelVisibility = Visibility.Visible;
+        private Visibility secondStackPanelVisibility = Visibility.Hidden;
+        private bool isSignInTabSelected = true;
 
         public string Login
         {
@@ -108,6 +112,36 @@ namespace educational_practice.ViewModels
             }
         }
 
+        public Visibility FirstStackPanelVisibility
+        {
+            get => firstStackPanelVisibility;
+            set
+            {
+                firstStackPanelVisibility = value;
+                OnPropertyChanged(nameof(FirstStackPanelVisibility));
+            }
+        }
+
+        public Visibility SecondStackPanelVisibility
+        {
+            get => secondStackPanelVisibility;
+            set
+            {
+                secondStackPanelVisibility = value;
+                OnPropertyChanged(nameof(SecondStackPanelVisibility));
+            }
+        }
+
+        public bool IsSignInTabSelected
+        {
+            get => isSignInTabSelected;
+            set
+            {
+                isSignInTabSelected = value;
+                OnPropertyChanged(nameof(IsSignInTabSelected));
+            }
+        }
+
         public ICommand LoginCommand { get; private set; }
         public ICommand SignUpContinueCommand { get; private set; }
         public ICommand SignUpCommand { get; private set; }
@@ -123,7 +157,7 @@ namespace educational_practice.ViewModels
 
         private bool CanSignUpContinue(object parameter)
         {
-            return !string.IsNullOrWhiteSpace(Login) && FirstPasswordForSignUp != null && SecondPasswordForSignUp != null;
+            return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(FirstPasswordForSignUp) && !string.IsNullOrWhiteSpace(SecondPasswordForSignUp);
         }
 
         private bool CanSignUp(object parameter)
@@ -133,21 +167,16 @@ namespace educational_practice.ViewModels
 
         private bool CanSignIn(object parameter)
         {
-            return !string.IsNullOrWhiteSpace(Login) && Password != null;
-        }
-
-        private bool CheckPassword()
-        {
-            return FirstPasswordForSignUp == SecondPasswordForSignUp;
+            return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Password);
         }
 
         private void SignUpContinue(object parameter)
         {
-            if (!dbLogic.LoginExists(Login))
+            if (dbLogic.LoginExists(Login))
             {
                 ErrorMessage = "Такой пользователь уже существует";
             }
-            else if (CheckPassword())
+            else if (FirstPasswordForSignUp != SecondPasswordForSignUp)
             {
                 ErrorMessage = "Первый пароль не совпадает с вторым";
             }
@@ -158,34 +187,43 @@ namespace educational_practice.ViewModels
             }
         }
 
-        private void SignUp(object parameter)
+        private void SwapVisibility()
         {
-            MessageBoxViewModel messageBoxViewModel = new MessageBoxViewModel();
-            messageBoxViewModel.Message = $"Пользователь зарегистрирован. Войдите в аккаунт.";
-            MessageBoxView messageBox = new MessageBoxView();
-            messageBox.DataContext = messageBoxViewModel;
-            messageBox.ShowDialog();
+            FirstStackPanelVisibility = FirstStackPanelVisibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+            SecondStackPanelVisibility = SecondStackPanelVisibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
         }
 
-        public void SwapVisibility()
+        private void SwapTabItemOnSignIn()
         {
-            if (loginWindow.SecondStackPanel.Visibility == Visibility.Visible)
-            {
-                loginWindow.FirstStackPanel.Visibility = Visibility.Visible;
-                loginWindow.SecondStackPanel.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                loginWindow.FirstStackPanel.Visibility = Visibility.Hidden;
-                loginWindow.SecondStackPanel.Visibility = Visibility.Visible;
-            }
+            IsSignInTabSelected = true;
+        }
+
+        private void ClearFields()
+        {
+            Login = String.Empty;
+            Password = String.Empty;
+            FirstName = String.Empty;
+            LastName = String.Empty;
+            MiddleName = String.Empty;
+            FirstPasswordForSignUp = String.Empty;
+            SecondPasswordForSignUp = String.Empty; 
+        }
+
+        private void SignUp(object parameter)
+        {
+            dbLogic.CreateUser(Login, FirstPasswordForSignUp, FirstName, LastName, MiddleName);
+            SwapTabItemOnSignIn();
+            SwapVisibility();
+            ClearFields();
+            string message = "Пользователь зарегистрирован. Войдите в аккаунт.";
+            MessageBoxShow.Invoke(this, message);
         }
 
         private void SignIn(object parameter)
         {
             if (dbLogic.IsValidLogin(Login, Password))
             {
-                Views.PersonalAccountView window = new Views.PersonalAccountView();
+                PersonalAccountView window = new PersonalAccountView();
                 window.Show();
                 loginWindow.Close();
             }
