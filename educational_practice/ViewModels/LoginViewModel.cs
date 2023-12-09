@@ -11,12 +11,14 @@ using System.Data.Entity;
 using educational_practice.Models;
 using System.Data.SqlClient;
 using System.Data;
+using educational_practice.Views;
 
 namespace educational_practice.ViewModels
 {
     internal class LoginViewModel : BaseViewModel
     {
-        readonly LoginWindow loginWindow = LoginWindow.loginWindow;
+        readonly DataBaseLogicModel dbLogic = new DataBaseLogicModel("Data Source=DESKTOP-A83RV0A\\MSSQLSERVER04;Initial Catalog=mvvm_project;Integrated Security=True");
+        readonly LoginView loginWindow = LoginView.loginWindow;
         private string login;
         private string password;
         private string errorMessage;
@@ -113,10 +115,10 @@ namespace educational_practice.ViewModels
 
         public LoginViewModel()
         {
-            LoginCommand = new CommandViewModel(SignIn, CanSignIn);
-            SignUpContinueCommand = new CommandViewModel(SignUpContinue, CanSignUpContinue);
-            SignUpCommand = new CommandViewModel(SignUp, CanSignUp);
-            OpenGitHubCommand = new CommandViewModel(OpenGitHub);
+            LoginCommand = new RelayCommand(SignIn, CanSignIn);
+            SignUpContinueCommand = new RelayCommand(SignUpContinue, CanSignUpContinue);
+            SignUpCommand = new RelayCommand(SignUp, CanSignUp);
+            OpenGitHubCommand = new RelayCommand(OpenGitHub);
         }
 
         private bool CanSignUpContinue(object parameter)
@@ -136,19 +138,20 @@ namespace educational_practice.ViewModels
 
         private bool CheckPassword()
         {
-            bool passwordsMatch = FirstPasswordForSignUp == SecondPasswordForSignUp;
-
-            if (!passwordsMatch)
-            {
-                ErrorMessage = "Первый пароль не совпадает с вторым";
-            }
-
-            return passwordsMatch;
+            return FirstPasswordForSignUp == SecondPasswordForSignUp;
         }
 
         private void SignUpContinue(object parameter)
         {
-            if (LoginExists(Login) && CheckPassword())
+            if (!dbLogic.LoginExists(Login))
+            {
+                ErrorMessage = "Такой пользователь уже существует";
+            }
+            else if (CheckPassword())
+            {
+                ErrorMessage = "Первый пароль не совпадает с вторым";
+            }
+            else
             {
                 ErrorMessage = "";
                 SwapVisibility();
@@ -157,7 +160,11 @@ namespace educational_practice.ViewModels
 
         private void SignUp(object parameter)
         {
-            MessageBox.Show($"аккаунт зарегистрирован. вы {FirstName} {LastName} {MiddleName}");
+            MessageBoxViewModel messageBoxViewModel = new MessageBoxViewModel();
+            messageBoxViewModel.Message = $"Пользователь зарегистрирован. Войдите в аккаунт.";
+            MessageBoxView messageBox = new MessageBoxView();
+            messageBox.DataContext = messageBoxViewModel;
+            messageBox.ShowDialog();
         }
 
         public void SwapVisibility()
@@ -176,9 +183,9 @@ namespace educational_practice.ViewModels
 
         private void SignIn(object parameter)
         {
-            if (IsValidLogin(Login, Password))
+            if (dbLogic.IsValidLogin(Login, Password))
             {
-                Views.PersonalAccountForm window = new Views.PersonalAccountForm();
+                Views.PersonalAccountView window = new Views.PersonalAccountView();
                 window.Show();
                 loginWindow.Close();
             }
@@ -186,32 +193,6 @@ namespace educational_practice.ViewModels
             {
                 ErrorMessage = "Неправильный логин или пароль";
             }
-        }
-
-        private bool IsValidLogin(string login, string password)
-        {
-            bool validUser;
-            using (var connection = new SqlConnection("Data Source=DESKTOP-A83RV0A\\MSSQLSERVER04;Initial Catalog=mvvm_project;Integrated Security=True"))
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "select *from [User] where login=@Login and [password]=@Password";
-                command.Parameters.Add("@Login", SqlDbType.NVarChar).Value = login;
-                command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
-                validUser = command.ExecuteScalar() == null ? false : true;
-            }
-            return validUser;
-        }
-
-        private bool LoginExists(string login)
-        {
-            if (login == "admin")
-            {
-                ErrorMessage = "Такой пользователь уже существует";
-            }
-
-            return true;
         }
 
         private void OpenGitHub(object parameter)

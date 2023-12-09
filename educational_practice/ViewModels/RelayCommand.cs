@@ -7,17 +7,18 @@ using System.Windows.Input;
 
 namespace educational_practice.ViewModels
 {
-    internal class CommandViewModel : ICommand
+    internal class RelayCommand : ICommand
     {
         private readonly Action<object> execute;
         private readonly Predicate<object> canExecute;
 
-        public CommandViewModel(Action<object> executeAction, Predicate<object> canExecuteAction)
+        public RelayCommand(Action<object> executeAction, Predicate<object> canExecuteAction)
         {
             execute = executeAction;
             canExecute = canExecuteAction;
         }
-        public CommandViewModel(Action<object> executeAction)
+
+        public RelayCommand(Action<object> executeAction)
         {
             execute = executeAction;
             canExecute = null;

@@ -1,17 +1,30 @@
 ﻿using educational_practice.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
-namespace educational_practice
+namespace educational_practice.Views
 {
-    public partial class LoginWindow : Window
+    /// <summary>
+    /// Логика взаимодействия для LoginView.xaml
+    /// </summary>
+    public partial class LoginView : Window
     {
         private bool dragging = false;
-        public static LoginWindow loginWindow;
+        public static LoginView loginWindow;
         private readonly LoginViewModel viewModel;
 
-        public LoginWindow()
+        public LoginView()
         {
             InitializeComponent();
             loginWindow = this;

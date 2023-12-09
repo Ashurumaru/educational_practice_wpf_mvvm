@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace educational_practice.Models
 {
-    internal class AccessLevelUser
+    internal class AccessLevelModel
     {
-        public AccessLevelUser(AccessLevel level)
-        {
-            Level = level;
-        }
-        public AccessLevel Level { get; }
+        public AccessLevel Level { get; set; }
         public enum AccessLevel
         {
             User,

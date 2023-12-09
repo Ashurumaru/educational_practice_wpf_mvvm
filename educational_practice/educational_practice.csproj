@@ -200,32 +200,40 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\DataBaseLogicModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\MessageBoxViewModel.cs" />
     <Compile Include="ViewModels\PersonalAccountViewModel.cs" />
-    <Compile Include="ViewModels\SignUpViewModel.cs" />
-    <Compile Include="Views\LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AccessLevel.cs" />
+    <Compile Include="Models\AccessLevelModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\CommandViewModel.cs" />
-    <Compile Include="Views\PersonalAccountForm.xaml.cs">
-      <DependentUpon>PersonalAccountForm.xaml</DependentUpon>
+    <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MessageBoxView.xaml.cs">
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\LoginWindow.xaml">
+    <Compile Include="Views\PersonalAccountView.xaml.cs">
+      <DependentUpon>PersonalAccountView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PersonalAccountForm.xaml">
+    <Page Include="Views\MessageBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\resources.xaml">
+    <Page Include="Views\PersonalAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\resources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

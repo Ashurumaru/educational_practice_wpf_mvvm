@@ -16,23 +16,18 @@ using System.Windows.Shapes;
 namespace educational_practice.Views
 {
     /// <summary>
-    /// Логика взаимодействия для PersonalAccountForm.xaml
+    /// Логика взаимодействия для PersonalAccountView.xaml
     /// </summary>
-    public partial class PersonalAccountForm : Window
+    public partial class PersonalAccountView : Window
     {
+
         private bool dragging = false;
         private PersonalAccountViewModel viewModel;
-        public PersonalAccountForm()
+        public PersonalAccountView()
         {
             InitializeComponent();
-            Loaded += PersonalAccountForm_Load;
             viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
-        }
-
-        private void PersonalAccountForm_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)

@@ -9,6 +9,14 @@
         <Setter Property="ResizeMode" Value="NoResize"/>
         <Setter Property="WindowStyle" Value="None"/>
     </Style>
+    
+    <Style x:Key="MessageBoxWindowStyle" TargetType="{x:Type Window}">
+        <Setter Property="DataContext" Value="local:MessageBoxViewModel"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+    </Style>
 
     <LinearGradientBrush x:Key="GradientBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
         <GradientStop Color="#462AD8" Offset="0"/>
