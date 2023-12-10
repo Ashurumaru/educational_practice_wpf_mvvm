@@ -63,8 +63,14 @@ namespace educational_practice.Models
                 command.Parameters.Add("@Password", SqlDbType.VarChar).Value = password;
                 command.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = firstName;
                 command.Parameters.Add("@LastName", SqlDbType.VarChar).Value = lastName;
-                command.Parameters.Add("@MiddleName", SqlDbType.VarChar).Value = middleName;
-
+                if (middleName != null)
+                {
+                    command.Parameters.Add("@MiddleName", SqlDbType.VarChar).Value = middleName;
+                }
+                else
+                {
+                    command.Parameters.Add("@MiddleName", SqlDbType.VarChar).Value = " ";
+                }
                 command.ExecuteNonQuery();
             }
         }
@@ -103,19 +109,32 @@ namespace educational_practice.Models
             }
         }
 
-        public DataTable GetAllUsers()
+        public List<UserModel> GetAllUsers()
         {
-            DataTable dataTable = new DataTable();
+            List<UserModel> users = new List<UserModel>();
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand("SELECT * FROM [User]", connection))
             {
                 connection.Open();
                 using (var reader = command.ExecuteReader())
                 {
-                    dataTable.Load(reader);
+                    while (reader.Read())
+                    {
+                        var user = new UserModel
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString(),
+                            MiddleName = reader["MiddleName"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Login = reader["Login"].ToString(),
+                            AccessLevel = Convert.ToInt32(reader["AccessLevel"])
+                        };
+                        users.Add(user);
+                    }
                 }
             }
-            return dataTable;
+            return users;
         }
     }
 }

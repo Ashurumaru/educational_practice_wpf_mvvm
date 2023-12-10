@@ -18,7 +18,7 @@ namespace educational_practice.ViewModels
     internal class LoginViewModel : BaseViewModel
     {
         public event EventHandler<string> MessageBoxShow;
-        readonly DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
+        readonly public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
         readonly LoginView loginWindow = LoginView.loginWindow;
         private string login;
         private string password;

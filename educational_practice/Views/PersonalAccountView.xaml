@@ -7,26 +7,59 @@
         mc:Ignorable="d"
         Title="PersonalAccountForm" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource LoginWindowStyle}">
+        Style="{StaticResource PersonalAccountWindowStyle}">
     <Grid>
-        <Grid>
-            <Grid.Background>
-                <StaticResource ResourceKey="BackgroundBrush"/>
-            </Grid.Background>
-        </Grid>
+        <Grid Background="{StaticResource BackgroundBrush}"/>
         <Grid Opacity="0.5" Background="{StaticResource GradientBackgroundBrush}"/>
-        <Grid>
-            <Border Width="550" Margin="15" Background="White" VerticalAlignment="Center" Padding="30" CornerRadius="20">
+        <Grid Margin="32, 32">
+            <Border Opacity="0" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="30" CornerRadius="25"/>
+            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="30" CornerRadius="25">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>
                 </Border.Effect>
-                <StackPanel>
-                    <TextBlock Text="Кабинет пользователя" FontSize="30" FontWeight="Bold" Margin="0 0 0 20"/>
-                    <TextBlock x:Name="txtAccessLevel" Text="Уровень доступа: " FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
-                    <TextBlock x:Name="txtFIO" Text="ФИО: " FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
-                </StackPanel>
+                
+                <TabControl x:Name="tabControl" Style="{StaticResource TabControlPersonalAccountStyle}" MinHeight="356" MinWidth="706" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
+                    <TabItem Header="Home" Style="{StaticResource PersonalAccountItemStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Кабинет пользователя" FontSize="30" FontWeight="Bold" Margin="0 0 0 20"/>
+                            <TextBlock x:Name="txtAccessLevel" Text="Уровень доступа: " FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
+                            <TextBlock x:Name="txtFIO" Text="ФИО: " FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem  Header="Database" Style="{StaticResource PersonalAccountItemStyle}">
+                        <Grid Margin="0 0 50 0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                            <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <ScrollViewer>
+                                        <DataGrid SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding Users}" RowStyle="{StaticResource DataGridRowStyle}" RowHeaderStyle="{StaticResource DataGridRowHeaderStyle}" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Style="{StaticResource DataGridStyle}" CellStyle="{StaticResource  DataGridCellStyle}" Cursor="Hand" >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn  Width="*" Header="#" Binding="{Binding Id}"/>
+                                                <DataGridTextColumn Width="*" Header="FirstName" Binding="{Binding FirstName}"/>
+                                                <DataGridTextColumn Width="*" Header="LastName" Binding="{Binding LastName}"/>
+                                                <DataGridTextColumn Width="*" Header="MiddleName" Binding="{Binding MiddleName}"/>
+                                                <DataGridTextColumn Width="*" Header="Login" Binding="{Binding Login}"/>
+                                                <DataGridTextColumn Width="*" Header="AccessLevel" Binding="{Binding AccessLevel}"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </ScrollViewer>
+                                </Grid>
+                        </Grid>
+                    </TabItem>
+                    
+                    <TabItem Header="Settings" Style="{StaticResource PersonalAccountItemStyle}">
+                        <StackPanel>
+
+                        </StackPanel>
+                    </TabItem>
+
+                    <TabItem Header="Exit" Style="{StaticResource PersonalAccountItemStyle}">
+                        <StackPanel>
+
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
             </Border>
         </Grid>
+        
         <Grid VerticalAlignment="Top">
             <DockPanel Name="titleBar" VerticalAlignment="Top" Height="32" LastChildFill="False" MouseDown="DockPanel_MouseDown" MouseUp="DockPanel_MouseUp" Background="Transparent">
                 <Button Style="{StaticResource CloseButtonStyle}" x:Name="btn_close" Content="&#xE8BB;" Click="btn_close_Click"/>

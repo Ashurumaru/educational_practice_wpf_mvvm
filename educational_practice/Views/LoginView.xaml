@@ -23,7 +23,7 @@
                     <BlurEffect Radius="6"/>
                 </Border.Effect>
             </Border>
-            <TabControl x:Name="tabControl" Style="{StaticResource TabControlStyle}" Margin="15,0,15,0">
+            <TabControl x:Name="tabControl" Style="{StaticResource TabControlLoginViewStyle}" Margin="15,0,15,0">
                 <TabItem Header="Sign In" Style="{StaticResource SignInTabItemStyle}" IsSelected="{Binding IsSignInTabSelected}">
                     <StackPanel Width="200" Height="320" >
                         <TextBlock Text="Sign in your account" Style="{StaticResource StandartText}" Margin="0 0 0 30" HorizontalAlignment="Center" FontSize="17"/>

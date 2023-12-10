@@ -1,6 +1,8 @@
-﻿using educational_practice.ViewModels;
+﻿using educational_practice.Models;
+using educational_practice.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +22,6 @@ namespace educational_practice.Views
     /// </summary>
     public partial class PersonalAccountView : Window
     {
-
         private bool dragging = false;
         private PersonalAccountViewModel viewModel;
         public PersonalAccountView()
@@ -28,6 +29,17 @@ namespace educational_practice.Views
             InitializeComponent();
             viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
+            viewModel.MessageBoxShow += HandleMessageBox;
+        }
+
+        private void HandleMessageBox(object sender, string message)
+        {
+            MessageBoxViewModel messageBoxViewModel = new MessageBoxViewModel();
+            messageBoxViewModel.Message = message;
+
+            MessageBoxView messageBox = new MessageBoxView();
+            messageBox.DataContext = messageBoxViewModel;
+            messageBox.ShowDialog();
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)

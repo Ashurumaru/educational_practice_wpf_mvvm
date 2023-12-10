@@ -1,4 +1,5 @@
-﻿using System;
+﻿using educational_practice.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,15 @@ namespace educational_practice.Views
             InitializeComponent();
             messageBox = this;
         }
+
+        public void HandleMessageBox(object sender, string message)
+        {
+            MessageBoxViewModel messageBoxViewModel = new MessageBoxViewModel();
+            messageBoxViewModel.Message = message;
+            messageBox.DataContext = messageBoxViewModel;
+            messageBox.ShowDialog();
+        }
+
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

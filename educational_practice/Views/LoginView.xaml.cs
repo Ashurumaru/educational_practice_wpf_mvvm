@@ -155,9 +155,5 @@ namespace educational_practice.Views
         {
                 viewModel.SwapVisibility();
         }
-        private void ChevronLeft_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            viewModel.SwapVisibility();
-        }
     }
 }
