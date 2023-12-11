@@ -16,17 +16,16 @@ using System.Windows.Shapes;
 namespace educational_practice.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AddUserView.xaml
+    /// Логика взаимодействия для UpdateUserView.xaml
     /// </summary>
-    public partial class AddUserView : Window
+    public partial class UpdateUserView : Window
     {
         private readonly PersonalAccountViewModel viewModel;
-        public static AddUserView addUserView;
-
-        public AddUserView()
+        public static UpdateUserView updateUserView;
+        public UpdateUserView()
         {
             InitializeComponent();
-            addUserView = this;
+            updateUserView = this;
             viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
         }

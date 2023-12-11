@@ -290,8 +290,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomControls\AddNewUser.xaml.cs">
+      <DependentUpon>AddNewUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\ChangeSelectedUser.xaml.cs">
+      <DependentUpon>ChangeSelectedUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\ChevronLeft.xaml.cs">
       <DependentUpon>ChevronLeft.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\DeleteSelectedUser.xaml.cs">
+      <DependentUpon>DeleteSelectedUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataBaseConfig.cs" />
     <Compile Include="Models\DataBaseLogicModel.cs" />
@@ -318,7 +327,22 @@
     <Compile Include="Views\PersonalAccountView.xaml.cs">
       <DependentUpon>PersonalAccountView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UpdateUserView.xaml.cs">
+      <DependentUpon>UpdateUserView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CustomControls\AddNewUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\ChangeSelectedUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomControls\ChevronLeft.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\DeleteSelectedUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -367,6 +391,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdateUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

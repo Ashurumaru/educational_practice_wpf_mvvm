@@ -136,6 +136,35 @@ namespace educational_practice.Models
             }
             return users;
         }
+
+        public UserModel GetUserById(int userId)
+        {
+            UserModel user = null;
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand("SELECT * FROM [User] WHERE Id=@UserId", connection))
+            {
+                connection.Open();
+                command.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        user = new UserModel
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString(),
+                            MiddleName = reader["MiddleName"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Login = reader["Login"].ToString(),
+                            AccessLevel = Convert.ToInt32(reader["AccessLevel"])
+                        };
+                    }
+                }
+            }
+            return user;
+        }
     }
 }
 

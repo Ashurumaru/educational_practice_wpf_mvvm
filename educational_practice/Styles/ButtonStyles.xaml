@@ -57,7 +57,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="ChevronLeftButtonStyle" TargetType="Button">
+    <Style x:Key="IconButtonStyle" TargetType="Button">
         <Setter Property="TextBlock.FontFamily" Value="Segoe MDL2 Assets"/>
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
         <Setter Property="FontSize" Value="16"/>

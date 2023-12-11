@@ -22,8 +22,7 @@ namespace educational_practice.ViewModels
             }
         }
 
-        public ICommand CloseCommand { get; }
-
+        public ICommand CloseCommand { get; private set; }
         public MessageBoxViewModel()
         {
             CloseCommand = new RelayCommand(Close);

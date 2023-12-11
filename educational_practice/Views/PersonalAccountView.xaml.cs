@@ -22,17 +22,18 @@ namespace educational_practice.Views
     /// </summary>
     public partial class PersonalAccountView : Window
     {
-        private bool dragging = false;
+        public static PersonalAccountView personalAccountView;
         private PersonalAccountViewModel viewModel;
         public PersonalAccountView()
         {
             InitializeComponent();
+            personalAccountView = this;
             viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
-            viewModel.MessageBoxShow += HandleMessageBox;
+            viewModel.MessageBoxShow += HandleMessageBoxAccount;
         }
 
-        private void HandleMessageBox(object sender, string message)
+        private void HandleMessageBoxAccount(object sender, string message)
         {
             MessageBoxViewModel messageBoxViewModel = new MessageBoxViewModel();
             messageBoxViewModel.Message = message;
@@ -76,7 +77,7 @@ namespace educational_practice.Views
 
         private void DockPanel_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            dragging = false;
+            bool dragging = false;
         }
 
 

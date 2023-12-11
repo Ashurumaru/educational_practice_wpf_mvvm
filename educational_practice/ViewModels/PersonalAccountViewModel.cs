@@ -13,15 +13,15 @@ namespace educational_practice.ViewModels
 {
     internal class PersonalAccountViewModel : BaseViewModel
     {
-        public event EventHandler<string> MessageBoxShow;
-        public event EventHandler AddNewUserShow;
+        private AddUserView addUserView = AddUserView.addUserView;
+        private UpdateUserView updateUserView = UpdateUserView.updateUserView;
+        public event EventHandler<string> MessageBoxShow = delegate { };
+        public event EventHandler OpenAddUserWindowRequested;
         readonly public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
         private string errorMessage; 
-        private string fio;
-        private string message;
         private ObservableCollection<UserModel> users;
+        private UserModel selectedItem;
         // логика получения уровня доступа через функцию в bdlogic которая запрашивает уровень доступа текущего пользователя
-        //
         public ObservableCollection<UserModel> Users
         {
             get => users;
@@ -37,7 +37,7 @@ namespace educational_practice.ViewModels
             get => Users.FirstOrDefault().Id;
             set
             {
-                foreach (var user in Users)
+                foreach (UserModel user in Users)
                 {
                     user.Id = value;
                 }
@@ -50,7 +50,7 @@ namespace educational_practice.ViewModels
             get => Users.FirstOrDefault()?.Login;
             set
             {
-                foreach (var user in Users)
+                foreach (UserModel user in Users)
                 {
                     user.Login = value;
                 }
@@ -63,20 +63,11 @@ namespace educational_practice.ViewModels
             get => Users.FirstOrDefault()?.Password;
             set
             {
-                foreach (var user in Users)
+                foreach (UserModel user in Users)
                 {
                     user.Password = value;
                 }
                 OnPropertyChanged(nameof(Password));
-            }
-        }
-        public string FIO
-        {
-            get => $"{FirstName} {LastName} {MiddleName}";
-            set
-            {
-                fio = value;
-                OnPropertyChanged(nameof(fio));
             }
         }
 
@@ -85,7 +76,7 @@ namespace educational_practice.ViewModels
             get => Users.FirstOrDefault()?.FirstName;
             set
             {
-                foreach (var user in Users)
+                foreach (UserModel user in Users)
                 {
                     user.FirstName = value;
                 }
@@ -93,13 +84,12 @@ namespace educational_practice.ViewModels
             }
         }
 
-
         public string LastName
         {
             get => Users.FirstOrDefault()?.LastName;
             set
             {
-                foreach (var user in Users)
+                foreach (UserModel user in Users)
                 {
                     user.LastName = value;
                 }
@@ -112,7 +102,7 @@ namespace educational_practice.ViewModels
             get => Users.FirstOrDefault()?.MiddleName;
             set
             {
-                foreach (var user in Users)
+                foreach (UserModel user in Users)
                 {
                     user.MiddleName = value;
                 }
@@ -125,7 +115,7 @@ namespace educational_practice.ViewModels
             get => Users.FirstOrDefault().AccessLevel;
             set
             {
-                foreach (var user in Users)
+                foreach (UserModel user in Users)
                 {
                     user.AccessLevel = value;
                 }
@@ -143,14 +133,28 @@ namespace educational_practice.ViewModels
             }
         }
 
-        public RelayCommand AddUserFormCommand;
-        public RelayCommand AddUserCommand;
-        public RelayCommand UpdateUserCommand;
-        public RelayCommand DeleteUserCommand;
+        public UserModel SelectedItem
+        {
+            get { return selectedItem; }
+            set
+            {
+                if (selectedItem != value)
+                {
+                    selectedItem = value;
+                    OnPropertyChanged(nameof(SelectedItem));
+                }
+            }
+        }
+
+        public RelayCommand AddUserFormCommand { get; private set; }
+        public RelayCommand UpdateUserFormCommand { get; private set; }
+        public RelayCommand AddUserCommand { get; private set; }
+        public RelayCommand UpdateUserCommand { get; private set; }
+        public RelayCommand DeleteUserCommand { get; private set; }
+        public RelayCommand CloseCommand { get; private set; }
         public PersonalAccountViewModel()
         {
             Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
-
             Users.CollectionChanged += (sender, args) =>
             {
                 OnPropertyChanged(nameof(Id));
@@ -162,56 +166,88 @@ namespace educational_practice.ViewModels
                 OnPropertyChanged(nameof(AccessLevel));
                 OnPropertyChanged(nameof(ErrorMessage));
             };
-            AddUserFormCommand = new RelayCommand(OpenAddUserWindow);
             AddUserCommand = new RelayCommand(AddNewUser, CanAddUser);
             UpdateUserCommand = new RelayCommand(UpdateUser, CanUpdateUser);
             DeleteUserCommand = new RelayCommand(DeleteUser, CanDeleteUser);
+            CloseCommand = new RelayCommand(CloseForm);
+            UpdateUserFormCommand = new RelayCommand(OpenUpdateUserWindow);
+            AddUserFormCommand = new RelayCommand(OpenAddUserForm);
+        }
+
+        private void CloseForm(object parameter)
+        {
+            addUserView.Close();
         }
 
         private void AddNewUser(object parameter)
         {
-            UserModel newUser = GetUserDataFromDialog(); 
-            dbLogic.CreateUser(newUser.Login, newUser.Password, newUser.FirstName, newUser.LastName, newUser.MiddleName);
-            Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
-            message = "Пользователь был добавлен.";
-        }
-
-        private void OpenAddUserWindow(object parameter)
-        {
-            AddUserView addUserView = new AddUserView();
-            addUserView.ShowDialog(); 
-        }
-
-        private UserModel GetUserDataFromDialog()
-        {
-            UserModel newUser = new UserModel
+            if (UserExists())
             {
-                Login = Login,
-                Password = Password,
-                FirstName = FirstName,
-                LastName = LastName,
-                MiddleName = MiddleName,
-                AccessLevel = 0
-            };
-
-            return newUser;
+                dbLogic.CreateUser(Login, Password, FirstName, LastName, MiddleName);
+                Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+                string message = "Пользователь был добавлен.";
+                MessageBoxShow.Invoke(this, message);
+                ClearFields();
+            }
+            else
+            {
+                string message = "Пользователь с таким логином уже существует.";
+                MessageBoxShow.Invoke(this, message);
+            }
         }
 
-        private bool CanAddUser(object parameter)
+        private void OpenAddUserForm(object parameter)
+        {
+            addUserView = new AddUserView();
+            addUserView.ShowDialog();
+        }
+
+        private void OpenUpdateUserWindow(object parameter)
+        {
+            updateUserView = new UpdateUserView();
+            updateUserView.ShowDialog();
+        }
+
+        private bool UserExists()
         {
             if (dbLogic.LoginExists(Login))
             {
-                ErrorMessage = "Такой пользователь уже существует";
-                MessageBoxShow.Invoke(this, message);
                 return false;
             }
             return true;
         }
 
+        private void ClearFields()
+        {
+            Login = String.Empty;
+            Password = String.Empty;
+            FirstName = String.Empty;
+            LastName = String.Empty;
+            MiddleName = String.Empty;
+        }
+
+        private bool CanAddUser(object parameter)
+        {
+            return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName); 
+        }
+
+
+
+
         private void UpdateUser(object parameter)
         {
-            //dbLogic.UpdateUser();
-            //Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+            if (SelectedItem != null)
+            {
+                UserModel SelectedUser = (UserModel)SelectedItem;
+                //dbLogic.UpdateUser(SelectedUser);
+                //Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+            }
+            else
+            {
+                string message = "Выберете Выберите элемент для удаления.";
+                MessageBoxShow.Invoke(this, message);
+            }
+
         }
 
         private bool CanUpdateUser(object parameter)
@@ -222,8 +258,16 @@ namespace educational_practice.ViewModels
 
         private void DeleteUser(object parameter)
         {
-            //dbLogic.DeleteUser(Id);
-            //Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+            if (SelectedItem != null)
+            {
+                dbLogic.DeleteUser(Id);
+                Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+            }
+            else
+            {
+                string message = "Выберете Выберите элемент для удаления.";
+                MessageBoxShow.Invoke(this, message);
+            }
         }
 
         private bool CanDeleteUser(object parameter)

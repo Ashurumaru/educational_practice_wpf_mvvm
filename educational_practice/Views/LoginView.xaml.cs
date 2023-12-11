@@ -29,10 +29,10 @@ namespace educational_practice.Views
             loginWindow = this;
             viewModel = new LoginViewModel();
             DataContext = viewModel;
-            viewModel.MessageBoxShow += HandleMessageBox;
+            viewModel.MessageBoxShow += HandleMessageBoxLogin;
         }
 
-        private void HandleMessageBox(object sender, string message)
+        private void HandleMessageBoxLogin(object sender, string message)
         {
             MessageBoxViewModel messageBoxViewModel = new MessageBoxViewModel();
             messageBoxViewModel.Message = message;
