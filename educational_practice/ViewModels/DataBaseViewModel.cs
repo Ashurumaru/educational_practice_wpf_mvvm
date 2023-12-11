@@ -1,4 +1,5 @@
-﻿using educational_practice.Models;
+﻿using educational_practice.CustomControls;
+using educational_practice.Models;
 using educational_practice.Views;
 using System;
 using System.Collections.Generic;
@@ -6,13 +7,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Input;
 
 namespace educational_practice.ViewModels
 {
-    internal class PersonalAccountViewModel : BaseViewModel
+    internal class DataBaseViewModel : BaseViewModel
     {
         private int id;
         private string login;
@@ -21,16 +19,12 @@ namespace educational_practice.ViewModels
         private string lastName;
         private string middleName;
         private int accessLevel;
-        private string CurrentFio;
         private AddUserView addUserView = AddUserView.addUserView;
         private UpdateUserView updateUserView = UpdateUserView.updateUserView;
-        //private PersonalAccountView personalAccountView = PersonalAccountView.personalAccountView;
-        //private LoginViewModel LoginViewModel = LoginViewModel.loginViewModel;
         readonly public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
+
         private ObservableCollection<UserModel> users;
-        private UserModel selectedUser;
-        private UserModel CurrentUser;
-        Visibility stackPanelVisibility = Visibility.Hidden;
+        private UserModel selectedItem;
         public ObservableCollection<UserModel> Users
         {
             get => users;
@@ -110,47 +104,17 @@ namespace educational_practice.ViewModels
             }
         }
 
-        public UserModel SelectedUser
+        public UserModel SelectedItem
         {
-            get { return selectedUser; }
+            get { return selectedItem; }
             set
             {
-                if (selectedUser != value)
+                if (selectedItem != value)
                 {
-                    selectedUser = value;
-                    OnPropertyChanged(nameof(SelectedUser));
+                    selectedItem = value;
+                    OnPropertyChanged(nameof(SelectedItem));
                 }
             }
-        }
-
-        public Visibility StackPanelVisibility
-        {
-            get => stackPanelVisibility;
-            set
-            {
-                stackPanelVisibility = value;
-                OnPropertyChanged(nameof(StackPanelVisibility));
-            }
-        }
-
-        public int CurrentAccessLevel
-        {
-            get => CurrentUser.AccessLevel;
-        }
-        string currentAccessLevelView = "Уровень доступа: ";
-        public string CurrentAccessLevelView
-        {
-            get {
-                if (CurrentAccessLevel == 1)
-                    return currentAccessLevelView += "Администратор";
-                else
-                    return currentAccessLevelView += "Пользователь";
-            }
-        }
-
-        public string FIO
-        {
-            get => $"ФИО: {CurrentUser.FirstName} {CurrentUser.LastName} {CurrentUser.MiddleName}";
         }
 
         public RelayCommand AddUserFormCommand { get; private set; }
@@ -158,58 +122,43 @@ namespace educational_practice.ViewModels
         public RelayCommand AddUserCommand { get; private set; }
         public RelayCommand UpdateUserCommand { get; private set; }
         public RelayCommand DeleteUserCommand { get; private set; }
-        public RelayCommand CloseCommand { get; private set; }  
-        //public RelayCommand LogOutCommand { get; private set; }
-        public PersonalAccountViewModel()
+        public RelayCommand CloseCommand { get; private set; }
+        public DataBaseViewModel()
         {
-            LoadCurrentUser();
-            VisibilityEditingButton();
             Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+            Users.CollectionChanged += (sender, args) =>
+            {
+                OnPropertyChanged(nameof(Id));
+                OnPropertyChanged(nameof(Login));
+                OnPropertyChanged(nameof(Password));
+                OnPropertyChanged(nameof(FirstName));
+                OnPropertyChanged(nameof(LastName));
+                OnPropertyChanged(nameof(MiddleName));
+                OnPropertyChanged(nameof(AccessLevel));
+            };
             AddUserCommand = new RelayCommand(AddNewUser, CanAddUser);
             UpdateUserCommand = new RelayCommand(UpdateUser, CanUpdateUser);
-            DeleteUserCommand = new RelayCommand(DeleteUser);
+            DeleteUserCommand = new RelayCommand(DeleteUser, CanDeleteUser);
             CloseCommand = new RelayCommand(CloseForm);
             UpdateUserFormCommand = new RelayCommand(OpenUpdateUserWindow);
             AddUserFormCommand = new RelayCommand(OpenAddUserForm);
-            //LogOutCommand = new RelayCommand(LogOut);
         }
-        //private void LogOut(object parameter)
-        //{
-        //    LoginView window = new LoginView();
-        //    window.Show();
-        //    personalAccountView.Close();
-        //}
-        private void LoadCurrentUser()
-        {
-            LoginViewModel loginViewModel = LoginViewModel.loginViewModel;
-            CurrentUser = loginViewModel.CurrentUser;
-        }
-
-        private void VisibilityEditingButton()
-        {
-            if (CurrentAccessLevel == 1)
-            {
-                StackPanelVisibility = Visibility.Visible;
-            }
-        }
-
 
         private void CloseForm(object parameter)
         {
-            addUserView?.Close();
-            updateUserView?.Close();
+            addUserView.Close();
         }
 
         private void AddNewUser(object parameter)
         {
-            if (!dbLogic.LoginExists(Login))
+            if (UserExists())
             {
                 dbLogic.CreateUser(Login, Password, FirstName, LastName, MiddleName);
                 Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
                 string message = "Пользователь был добавлен.";
                 MessageBoxViewModel messageBox = new MessageBoxViewModel();
                 messageBox.ShowMessageBox(message);
-                addUserView?.Close();
+                ClearFields();
             }
             else
             {
@@ -221,76 +170,86 @@ namespace educational_practice.ViewModels
 
         private void OpenAddUserForm(object parameter)
         {
+            ClearFields();
             addUserView = new AddUserView();
             addUserView.ShowDialog();
         }
 
         private void OpenUpdateUserWindow(object parameter)
         {
-            if (SelectedUser != null)
+            updateUserView = new UpdateUserView();
+            updateUserView.ShowDialog();
+        }
+
+        private bool UserExists()
+        {
+            if (dbLogic.LoginExists(Login))
             {
-                updateUserView = new UpdateUserView();
-                updateUserView.ShowDialog();
+                return false;
             }
-            else
-            {
-                string message = "Выберите пользователя для изменения.";
-                MessageBoxViewModel messageBox = new MessageBoxViewModel();
-                messageBox.ShowMessageBox(message);
-            }
+            return true;
+        }
+
+        private void ClearFields()
+        {
+            Login = String.Empty;
+            Password = String.Empty;
+            FirstName = String.Empty;
+            LastName = String.Empty;
+            MiddleName = String.Empty;
         }
 
         private bool CanAddUser(object parameter)
         {
-            return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName); 
+            return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName);
+        }
+
+
+
+
+        private void UpdateUser(object parameter)
+        {
+            if (SelectedItem != null)
+            {
+                UserModel SelectedUser = (UserModel)SelectedItem;
+                //dbLogic.UpdateUser(SelectedUser);
+                //Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+            }
+            else
+            {
+                string message = "Выберете Выберите элемент для удаления.";
+                MessageBoxViewModel messageBox = new MessageBoxViewModel();
+                messageBox.ShowMessageBox(message);
+            }
+
         }
 
         private bool CanUpdateUser(object parameter)
         {
-            return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName) && !string.IsNullOrWhiteSpace(AccessLevel.ToString());
-        }
-
-        private void UpdateUser(object parameter)
-        {
-            if (SelectedUser != null)
-            {
-                dbLogic.UpdateUser(SelectedUser);
-                Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
-                updateUserView?.Close();
-            }
-            else
-            {
-                string message = "Выберите пользователя для изменения.";
-                MessageBoxViewModel messageBox = new MessageBoxViewModel();
-                messageBox.ShowMessageBox(message);
-            }
+            // сюда логику проверки возможности обновления пользователя
+            return true;
         }
 
         private void DeleteUser(object parameter)
         {
-            if (SelectedUser != null)
+            if (SelectedItem != null)
             {
-                if (SelectedUser.AccessLevel != 1)
-                {
-                    dbLogic.DeleteUser(SelectedUser.Id);
-                    Users.Remove(SelectedUser);
-                    string message = "Пользователь удален.";
-                    MessageBoxViewModel messageBox = new MessageBoxViewModel();
-                    messageBox.ShowMessageBox(message);
-                }
-                else
-                {
-                    string message = "Нельзя удалить пользователя с уровнем доступа администратор.";
-                    MessageBoxViewModel messageBox = new MessageBoxViewModel();
-                    messageBox.ShowMessageBox(message);
-                }
+                dbLogic.DeleteUser(Id);
+                Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
             }
             else
             {
-                string message = "Выберите пользователя для удаления.";
+                string message = "Выберете Выберите элемент для удаления.";
                 MessageBoxViewModel messageBox = new MessageBoxViewModel();
                 messageBox.ShowMessageBox(message);
             }
         }
+
+        private bool CanDeleteUser(object parameter)
+        {
+            // сюдп логику проверки возможности удаления пользователя
+            return true;
+        }
     }
+
 }

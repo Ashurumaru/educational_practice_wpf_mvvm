@@ -30,17 +30,6 @@ namespace educational_practice.Views
             personalAccountView = this;
             viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
-            viewModel.MessageBoxShow += HandleMessageBoxAccount;
-        }
-
-        private void HandleMessageBoxAccount(object sender, string message)
-        {
-            MessageBoxViewModel messageBoxViewModel = new MessageBoxViewModel();
-            messageBoxViewModel.Message = message;
-
-            MessageBoxView messageBox = new MessageBoxView();
-            messageBox.DataContext = messageBoxViewModel;
-            messageBox.ShowDialog();
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
@@ -131,6 +120,14 @@ namespace educational_practice.Views
                 btn_maximize.Content = "\uE922";
                 titleBar.Height = 32;
             }
+        }
+
+        private void TabItem_LogOut_click(object sender, MouseButtonEventArgs e)
+        {
+            //починить
+            LoginView loginView = LoginView.loginWindow;
+            loginView.Show();
+            Application.Current.Shutdown();
         }
     }
 }

@@ -8,9 +8,6 @@
         Title="PersonalAccountForm" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource PersonalAccountWindowStyle}">
-    <Window.DataContext>
-        <local:PersonalAccountViewModel />
-    </Window.DataContext>
     <Grid>
         <Grid Background="{StaticResource BackgroundBrush}"/>
         <Grid Opacity="0.5" Background="{StaticResource GradientBackgroundBrush}"/>
@@ -20,57 +17,54 @@
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>
                 </Border.Effect>
+                <Grid>
+                    <TabControl x:Name="tabControl" Style="{StaticResource TabControlPersonalAccountStyle}" MinHeight="356" MinWidth="706" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
+                        <TabItem Header="Home" Style="{StaticResource PersonalAccountItemStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Кабинет пользователя" FontSize="30" FontWeight="Bold" Margin="0 0 0 20"/>
+                                <TextBlock Text="{Binding CurrentAccessLevelView}" FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
+                                <TextBlock Text="{Binding FIO}" FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="Database" Style="{StaticResource PersonalAccountItemStyle}">
+                            <DockPanel>
+                                <Grid DockPanel.Dock="Top">
+                                    <StackPanel Visibility="{Binding StackPanelVisibility}" DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 10 0">
+                                        <Button Command="{Binding UpdateUserFormCommand}" Style="{StaticResource IconButtonStyle}" Content="&#xEF58;" FontSize="30" Margin="0 0 0 0"/>
+                                        <Button Command="{Binding DeleteUserCommand}" Style="{StaticResource IconButtonStyle}" Content="&#xE8F8;" FontSize="30" Margin="0 0 0 0" IsEnabled="{Binding CanDeleteUser}"/>
+                                        <Button Command="{Binding AddUserFormCommand}" Style="{StaticResource IconButtonStyle}" Content="&#xE8FA;" FontSize="30" Margin="0 0 0 0"/>
+                                    </StackPanel>
+                                    <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Margin="0 0 10 0" VerticalAlignment="Bottom">
+                                        <TextBlock Text="Database: Users" Style="{StaticResource StandartText}" FontSize="20" />
+                                    </StackPanel>
+                                </Grid>
+                                <ScrollViewer>
+                                    <DataGrid SelectedItem="{Binding SelectedUser, Mode=TwoWay}" ItemsSource="{Binding Users}" RowStyle="{StaticResource DataGridRowStyle}" RowHeaderStyle="{StaticResource DataGridRowHeaderStyle}" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Style="{StaticResource DataGridStyle}" CellStyle="{StaticResource  DataGridCellStyle}" Cursor="Hand" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn SelectiveScrollingGrid.SelectiveScrollingOrientation="Horizontal" Width="57" Header="#" Binding="{Binding Id}"/>
+                                            <DataGridTextColumn Width="*" Header="FirstName" Binding="{Binding FirstName}"/>
+                                            <DataGridTextColumn Width="*" Header="LastName" Binding="{Binding LastName}"/>
+                                            <DataGridTextColumn Width="*" Header="MiddleName" Binding="{Binding MiddleName}"/>
+                                            <DataGridTextColumn Width="*" Header="Login" Binding="{Binding Login}"/>
+                                            <DataGridTextColumn Width="*" Header="AccessLevel" Binding="{Binding AccessLevel}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </ScrollViewer>
+                            </DockPanel>
+                        </TabItem>
 
-                <TabControl x:Name="tabControl" Style="{StaticResource TabControlPersonalAccountStyle}" MinHeight="356" MinWidth="706" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
-                    <TabItem Header="Home" Style="{StaticResource PersonalAccountItemStyle}">
-                        <StackPanel>
-                            <TextBlock Text="Кабинет пользователя" FontSize="30" FontWeight="Bold" Margin="0 0 0 20"/>
-                            <TextBlock x:Name="txtAccessLevel" Text="Уровень доступа: " FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
-                            <TextBlock x:Name="txtFIO" Text="ФИО: " FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
-                        </StackPanel>
-                    </TabItem>
-                    <TabItem Header="Database" Style="{StaticResource PersonalAccountItemStyle}">
-                        <DockPanel>
-                            <Grid DockPanel.Dock="Top">
-                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 10 0">
-                                    <Button Command="{Binding UpdateUserCommand}" Style="{StaticResource IconButtonStyle}" Content="&#xEF58;" FontSize="30" Margin="0 0 0 0"/>
-                                    <Button Command="{Binding DeleteUserCommand}" Style="{StaticResource IconButtonStyle}" Content="&#xE8F8;" FontSize="30" Margin="0 0 0 0"/>
-                                    <Button Command="{Binding AddUserFormCommand}" Style="{StaticResource IconButtonStyle}" Content="&#xE8FA;" FontSize="30" Margin="0 0 0 0"/>
-                                </StackPanel>
-                                <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Margin="0 0 10 0" VerticalAlignment="Bottom">
-                                    <TextBlock Text="Database: Users" Style="{StaticResource StandartText}" FontSize="25" />
-                                </StackPanel>
-                            </Grid>
-                            <ScrollViewer>
-                                <DataGrid SelectedItem="{Binding SelectedItemId, Mode=TwoWay}" ItemsSource="{Binding Users}" RowStyle="{StaticResource DataGridRowStyle}" RowHeaderStyle="{StaticResource DataGridRowHeaderStyle}" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Style="{StaticResource DataGridStyle}" CellStyle="{StaticResource  DataGridCellStyle}" Cursor="Hand" >
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Width="57" Header="#" Binding="{Binding Id}"/>
-                                        <DataGridTextColumn Width="*" Header="FirstName" Binding="{Binding FirstName}"/>
-                                        <DataGridTextColumn Width="*" Header="LastName" Binding="{Binding LastName}"/>
-                                        <DataGridTextColumn Width="*" Header="MiddleName" Binding="{Binding MiddleName}"/>
-                                        <DataGridTextColumn Width="*" Header="Login" Binding="{Binding Login}"/>
-                                        <DataGridTextColumn Width="*" Header="AccessLevel" Binding="{Binding AccessLevel}"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </ScrollViewer>
-                        </DockPanel>
-                    </TabItem>
+                        <TabItem Header="Settings" Style="{StaticResource PersonalAccountItemStyle}">
+                            <StackPanel>
 
-                    <TabItem Header="Settings" Style="{StaticResource PersonalAccountItemStyle}">
-                        <StackPanel>
-
-                        </StackPanel>
-                    </TabItem>
-
-                    <TabItem Header="Exit" Style="{StaticResource PersonalAccountItemStyle}">
-                        <StackPanel>
-
-                        </StackPanel>
-                    </TabItem>
-                </TabControl>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                    <Grid>
+                        <Button Margin="0 0 0 0" Command="" Content="Log Out" Style="{StaticResource LogOutButtonStyle}"/>
+                    </Grid>
+                </Grid>
             </Border>
         </Grid>
-        
         <Grid VerticalAlignment="Top">
             <DockPanel Name="titleBar" VerticalAlignment="Top" Height="32" LastChildFill="False" MouseDown="DockPanel_MouseDown" MouseUp="DockPanel_MouseUp" Background="Transparent">
                 <Button Style="{StaticResource CloseButtonStyle}" x:Name="btn_close" Content="&#xE8BB;" Click="btn_close_Click"/>

@@ -124,4 +124,47 @@
         </Setter>
         <Setter Property="Focusable" Value="False"/>
     </Style>
+
+    <Style x:Key="LogOutButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#deabf5"/>
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Height" Value="44"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Dhurjati"/>
+        <Setter Property="FontFamily" Value="Dhurjati"/>
+        <Setter Property="FontFamily" Value="Dhurjati"/>
+        <Setter Property="FontFamily" Value="Dhurjati"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border Name="Border" BorderBrush="Transparent" BorderThickness="1" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="ContentSite"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          ContentSource="Content"
+                                          Margin="10,2"/>
+                        </Border>
+
+                        <Border x:Name="SelectedUnderline" Visibility="Collapsed" BorderBrush="#deabf5" BorderThickness="2,2,2,2" CornerRadius="2,30,2,30"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SelectedUnderline" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Border" Property="Opacity" Value="1"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <BlurEffect Radius="2"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

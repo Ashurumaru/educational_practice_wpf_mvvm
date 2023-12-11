@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:educational_practice.Views"
+        xmlns:local="clr-namespace:educational_practice.ViewModels"
         mc:Ignorable="d"
         Style="{StaticResource AddUserWindowStyle}"
         WindowStartupLocation="CenterScreen"
-        Height="600" Width="450">
+        Height="400" Width="450">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Border Width="350" Height="300" CornerRadius="40" Opacity="0.8" Background="{StaticResource GradientBackgroundBrush}"/>
         <Border Width="350" Height="400" Padding="30" Margin="0,0,0,0">
@@ -38,7 +38,7 @@
         </Border>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,210,0,0">
             <Button Content="Отмена" Command="{Binding CloseCommand}" Style="{StaticResource ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,48,10" VerticalAlignment="Bottom"/>
-            <Button Content="Изменить" Command="{Binding }" Style="{StaticResource ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,0,10" VerticalAlignment="Bottom"/>
+            <Button Content="Изменить" Command="{Binding UpdateUser}" Style="{StaticResource ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,0,10" VerticalAlignment="Bottom"/>
         </StackPanel>
     </Grid>
 </Window>

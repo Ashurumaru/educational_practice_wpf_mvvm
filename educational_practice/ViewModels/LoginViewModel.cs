@@ -17,9 +17,10 @@ namespace educational_practice.ViewModels
 {
     internal class LoginViewModel : BaseViewModel
     {
-        public event EventHandler<string> MessageBoxShow;
         readonly public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
         readonly LoginView loginWindow = LoginView.loginWindow;
+        public static LoginViewModel loginViewModel;
+        private UserModel currentUser;
         private string login;
         private string password;
         private string errorMessage;
@@ -31,6 +32,16 @@ namespace educational_practice.ViewModels
         private Visibility firstStackPanelVisibility = Visibility.Visible;
         private Visibility secondStackPanelVisibility = Visibility.Hidden;
         private bool isSignInTabSelected = true;
+
+        public UserModel CurrentUser
+        {
+            get => currentUser;
+            private set
+            {
+                currentUser = value;
+                OnPropertyChanged(nameof(CurrentUser));
+            }
+        }
 
         public string Login
         {
@@ -149,6 +160,7 @@ namespace educational_practice.ViewModels
 
         public LoginViewModel()
         {
+            loginViewModel = this;
             LoginCommand = new RelayCommand(SignIn, CanSignIn);
             SignUpContinueCommand = new RelayCommand(SignUpContinue, CanSignUpContinue);
             SignUpCommand = new RelayCommand(SignUp, CanSignUp);
@@ -216,13 +228,15 @@ namespace educational_practice.ViewModels
             SwapVisibility();
             ClearFields();
             string message = "Пользователь зарегистрирован. Войдите в аккаунт.";
-            MessageBoxShow.Invoke(this, message);
+            MessageBoxViewModel messageBox = new MessageBoxViewModel();
+            messageBox.ShowMessageBox(message);
         }
 
         private void SignIn(object parameter)
         {
             if (dbLogic.IsValidLogin(Login, Password))
             {
+                CurrentUser = dbLogic.GetUserByLogin(Login);
                 PersonalAccountView window = new PersonalAccountView();
                 window.Show();
                 loginWindow.Close();

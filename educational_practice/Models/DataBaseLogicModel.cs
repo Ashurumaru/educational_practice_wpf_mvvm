@@ -75,7 +75,7 @@ namespace educational_practice.Models
             }
         }
 
-        public void UpdateUser(int userId, string login, string password, string firstName, string lastName, string middleName)
+        public void UpdateUser(UserModel user)
         {
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand())
@@ -84,12 +84,12 @@ namespace educational_practice.Models
                 command.Connection = connection;
                 command.CommandText = "UPDATE [User] SET Login=@Login, Password=@Password, FirstName=@FirstName, " +
                                       "LastName=@LastName, MiddleName=@MiddleName WHERE Id=@UserId";
-                command.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
-                command.Parameters.Add("@Login", SqlDbType.VarChar).Value = login;
-                command.Parameters.Add("@Password", SqlDbType.VarChar).Value = password;
-                command.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = firstName;
-                command.Parameters.Add("@LastName", SqlDbType.VarChar).Value = lastName;
-                command.Parameters.Add("@MiddleName", SqlDbType.VarChar).Value = middleName;
+                command.Parameters.Add("@UserId", SqlDbType.Int).Value = user.Id;
+                command.Parameters.Add("@Login", SqlDbType.VarChar).Value = user.Login;
+                command.Parameters.Add("@Password", SqlDbType.VarChar).Value = user.Password;
+                command.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = user.FirstName;
+                command.Parameters.Add("@LastName", SqlDbType.VarChar).Value = user.LastName;
+                command.Parameters.Add("@MiddleName", SqlDbType.VarChar).Value = user.MiddleName;
 
                 command.ExecuteNonQuery();
             }
@@ -137,14 +137,17 @@ namespace educational_practice.Models
             return users;
         }
 
-        public UserModel GetUserById(int userId)
+        public UserModel GetUserByLogin(string login)
         {
             UserModel user = null;
+
             using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand("SELECT * FROM [User] WHERE Id=@UserId", connection))
+            using (var command = new SqlCommand())
             {
                 connection.Open();
-                command.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM [User] WHERE Login=@Login";
+                command.Parameters.Add("@Login", SqlDbType.VarChar).Value = login;
 
                 using (var reader = command.ExecuteReader())
                 {

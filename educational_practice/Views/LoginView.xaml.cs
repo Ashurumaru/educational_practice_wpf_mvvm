@@ -29,17 +29,6 @@ namespace educational_practice.Views
             loginWindow = this;
             viewModel = new LoginViewModel();
             DataContext = viewModel;
-            viewModel.MessageBoxShow += HandleMessageBoxLogin;
-        }
-
-        private void HandleMessageBoxLogin(object sender, string message)
-        {
-            MessageBoxViewModel messageBoxViewModel = new MessageBoxViewModel();
-            messageBoxViewModel.Message = message;
-
-            MessageBoxView messageBox = new MessageBoxView();
-            messageBox.DataContext = messageBoxViewModel;
-            messageBox.ShowDialog();
         }
 
         private void PasswordBox1_PasswordChanged(object sender, RoutedEventArgs e)

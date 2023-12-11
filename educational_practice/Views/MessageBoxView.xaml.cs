@@ -34,6 +34,7 @@ namespace educational_practice.Views
             messageBoxViewModel.Message = message;
             messageBox.DataContext = messageBoxViewModel;
             messageBox.ShowDialog();
+
         }
     }
 }

@@ -33,5 +33,12 @@ namespace educational_practice.ViewModels
             MessageBoxView messageBox = MessageBoxView.messageBox;
             messageBox.Close();
         }
+
+        public void ShowMessageBox(string message)
+        {
+            MessageBoxViewModel viewModel = new MessageBoxViewModel { Message = message };
+            MessageBoxView view = new MessageBoxView { DataContext = viewModel };
+            view.ShowDialog();
+        }
     }
 }
