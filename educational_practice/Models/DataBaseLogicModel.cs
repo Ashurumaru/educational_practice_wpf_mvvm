@@ -1,4 +1,5 @@
-﻿using System;
+﻿using educational_practice.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -52,6 +53,7 @@ namespace educational_practice.Models
 
         public void CreateUser(string login, string password, string firstName, string lastName, string middleName)
         {
+
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand())
             {
@@ -83,13 +85,14 @@ namespace educational_practice.Models
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "UPDATE [User] SET Login=@Login, Password=@Password, FirstName=@FirstName, " +
-                                      "LastName=@LastName, MiddleName=@MiddleName WHERE Id=@UserId";
+                                      "LastName=@LastName, MiddleName=@MiddleName, AccessLevel=@AccessLevel WHERE Id=@UserId";
                 command.Parameters.Add("@UserId", SqlDbType.Int).Value = user.Id;
                 command.Parameters.Add("@Login", SqlDbType.VarChar).Value = user.Login;
                 command.Parameters.Add("@Password", SqlDbType.VarChar).Value = user.Password;
                 command.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = user.FirstName;
                 command.Parameters.Add("@LastName", SqlDbType.VarChar).Value = user.LastName;
                 command.Parameters.Add("@MiddleName", SqlDbType.VarChar).Value = user.MiddleName;
+                command.Parameters.Add("@AccessLevel", SqlDbType.Int).Value = user.AccessLevel;
 
                 command.ExecuteNonQuery();
             }

@@ -26,6 +26,7 @@ namespace educational_practice.ViewModels
         private UpdateUserView updateUserView = UpdateUserView.updateUserView;
         private PersonalAccountView personalAccountView = PersonalAccountView.personalAccountView;
         private LoginViewModel LoginViewModel = LoginViewModel.loginViewModel;
+        public static PersonalAccountViewModel personalAccount;
         readonly public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
         private ObservableCollection<UserModel> users;
         private UserModel selectedUser;
@@ -105,8 +106,15 @@ namespace educational_practice.ViewModels
             get => accessLevel;
             set
             {
-                accessLevel = value;
-                OnPropertyChanged(nameof(AccessLevel));
+                if (accessLevel == 0 || accessLevel == 1)
+                {
+                    accessLevel = value;
+                    OnPropertyChanged(nameof(AccessLevel));
+                }
+                else
+                {
+                    accessLevel = 0;
+                }
             }
         }
 
@@ -158,17 +166,18 @@ namespace educational_practice.ViewModels
         public RelayCommand AddUserCommand { get; private set; }
         public RelayCommand UpdateUserCommand { get; private set; }
         public RelayCommand DeleteUserCommand { get; private set; }
-        public RelayCommand CloseCommand { get; private set; }  
+        public RelayCommand CloseCommand { get; private set; }
         public RelayCommand LogOutCommand { get; private set; }
         public PersonalAccountViewModel()
         {
+            personalAccount = this;
             LoadCurrentUser();
             VisibilityEditingButton();
             Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
             AddUserCommand = new RelayCommand(AddNewUser, CanAddUser);
             UpdateUserCommand = new RelayCommand(UpdateUser, CanUpdateUser);
             DeleteUserCommand = new RelayCommand(DeleteUser);
-            CloseCommand = new RelayCommand(CloseForm);
+            CloseCommand = new RelayCommand(Close);
             UpdateUserFormCommand = new RelayCommand(OpenUpdateUserWindow);
             AddUserFormCommand = new RelayCommand(OpenAddUserForm);
             LogOutCommand = new RelayCommand(LogOut);
@@ -194,7 +203,12 @@ namespace educational_practice.ViewModels
         }
 
 
-        private void CloseForm(object parameter)
+        private void Close(object parameter)
+        {
+            CloseForm();
+        }
+
+        private void CloseForm()
         {
             addUserView?.Close();
             updateUserView?.Close();
@@ -209,7 +223,7 @@ namespace educational_practice.ViewModels
                 string message = "Пользователь был добавлен.";
                 MessageBoxViewModel messageBox = new MessageBoxViewModel();
                 messageBox.ShowMessageBox(message);
-                addUserView?.Close();
+                CloseForm();
             }
             else
             {
@@ -259,10 +273,28 @@ namespace educational_practice.ViewModels
         private void UpdateUser(object parameter)
         {
             if (SelectedUser != null)
-            {        
-                dbLogic.UpdateUser(SelectedUser);
-                Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
-                updateUserView?.Close();
+            {
+                if (SelectedUser.AccessLevel == 0 || SelectedUser.AccessLevel == 1)
+                {
+                    SelectedUser.Login = Login;
+                    SelectedUser.Password = Password;
+                    SelectedUser.FirstName = FirstName;
+                    SelectedUser.LastName = LastName;
+                    SelectedUser.MiddleName = MiddleName;
+                    SelectedUser.AccessLevel = AccessLevel;
+                    dbLogic.UpdateUser(SelectedUser);
+                    string message = "Пользователь обнавлен.";
+                    MessageBoxViewModel messageBox = new MessageBoxViewModel();
+                    messageBox.ShowMessageBox(message);
+                    Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+                    CloseForm();
+                }
+                else 
+                {
+                    string message = "Уровень доступа может быть только 1 или 0 (0 - user, 1 - admin)";
+                    MessageBoxViewModel messageBox = new MessageBoxViewModel();
+                    messageBox.ShowMessageBox(message);
+                }
             }
             else
             {

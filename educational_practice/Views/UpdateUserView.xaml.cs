@@ -20,13 +20,12 @@ namespace educational_practice.Views
     /// </summary>
     public partial class UpdateUserView : Window
     {
-        private readonly PersonalAccountViewModel viewModel;
+        private readonly PersonalAccountViewModel viewModel = PersonalAccountViewModel.personalAccount;
         public static UpdateUserView updateUserView;
         public UpdateUserView()
         {
             InitializeComponent();
             updateUserView = this;
-            viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
         }
     }

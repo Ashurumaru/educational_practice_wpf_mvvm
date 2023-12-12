@@ -5,18 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:educational_practice.ViewModels"
         mc:Ignorable="d"
-        Title="PersonalAccountForm" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource PersonalAccountWindowStyle}">
     <Grid>
         <Grid Background="{StaticResource BackgroundBrush}"/>
-        <Grid Opacity="0.5" Background="{StaticResource GradientBackgroundBrush}"/>
+        <Grid Background="{StaticResource GradientBackgroundBrush}" Opacity="0.5"/>
         <Grid Margin="32, 32">
-            <Border Opacity="0" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="30" CornerRadius="25"/>
-            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="30" CornerRadius="25">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>
-                </Border.Effect>
+            <Border Style="{StaticResource PersonalAccountBorderStyle}"/>
+            <Border Style="{StaticResource PersonalAccountBorderStyle}">
                 <Grid>
                     <TabControl x:Name="tabControl" Style="{StaticResource TabControlPersonalAccountStyle}" MinHeight="356" MinWidth="706" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
                         <TabItem Header="Home" Style="{StaticResource PersonalAccountItemStyle}">

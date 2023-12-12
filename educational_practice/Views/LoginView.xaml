@@ -8,21 +8,10 @@
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource LoginWindowStyle}">
     <Grid>
-        <Grid>
-            <Grid.Background>
-                <StaticResource ResourceKey="BackgroundBrush"/>
-            </Grid.Background>
-        </Grid>
-        <Grid Opacity="0.5" Background="{StaticResource GradientBackgroundBrush}"/>
+        <Grid Background="{StaticResource BackgroundBrush}"/>
+        <Grid Background="{StaticResource GradientBackgroundBrush}" Opacity="0.5"/>
         <Grid Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Style="{StaticResource BorderStyle}">
-                <Border.Background>
-                    <SolidColorBrush Color="#BC2CD8" Opacity="0.4"/>
-                </Border.Background>
-                <Border.Effect>
-                    <BlurEffect Radius="6"/>
-                </Border.Effect>
-            </Border>
+            <Border Style="{StaticResource LoginBorderStyle}"/>
             <TabControl x:Name="tabControl" Style="{StaticResource TabControlLoginViewStyle}" Margin="15,0,15,0">
                 <TabItem Header="Sign In" Style="{StaticResource SignInTabItemStyle}" IsSelected="{Binding IsSignInTabSelected}">
                     <StackPanel Width="200" Height="320" >

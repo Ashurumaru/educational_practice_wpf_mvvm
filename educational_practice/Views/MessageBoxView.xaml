@@ -6,11 +6,10 @@
         xmlns:local="clr-namespace:educational_practice.Views"
         mc:Ignorable="d"
         Style="{StaticResource MessageBoxWindowStyle}"
-        WindowStartupLocation="CenterScreen"
-        Height="225" Width="450">
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        <Border Width="Auto" Height="Auto" CornerRadius="40" Padding="20" Opacity="0.8" Background="{StaticResource GradientBackgroundBrush}"/>
-        <Border Width="Auto" Height="Auto" CornerRadius="40" Padding="20">
+        <Border Style="{StaticResource MessageBorderStyle}"/>
+        <Border Width="Auto" Height="Auto" Padding="20">
             <Grid>
                 <StackPanel Width="410" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Text="{Binding Message}" FontSize="15" Style="{StaticResource StandartText}" TextWrapping="Wrap" Foreground="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" />

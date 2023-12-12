@@ -3,8 +3,8 @@
     
     <!--Original Theme-->
     <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="#8A16C1"/>
-        <Setter Property="Foreground" Value="#C7D0CC"/>
+        <Setter Property="Background" Value="{StaticResource ColorMagenta}"/>
+        <Setter Property="Foreground" Value="{StaticResource ColorText}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Montserrat"/>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -19,16 +19,16 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#ba50eb"/>
+                <Setter Property="Background" Value="{StaticResource ColorPinkMouseOver}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="GeneralButtonTitleBar" TargetType="{x:Type Button}">
         <Setter Property="TextBlock.FontFamily" Value="Segoe MDL2 Assets"/>
-        <Setter Property="TextBlock.Foreground" Value="White"/>
+        <Setter Property="TextBlock.Foreground" Value="{StaticResource ColorText}"/>
         <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource ColorText}"/>
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="Opacity" Value="0.1"/>
         <Setter Property="Margin" Value="0,0,0,0"/>
@@ -67,7 +67,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Opacity" Value="0.7"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Foreground" Value="#deabf5"/>
+        <Setter Property="Foreground" Value="{StaticResource ColorLightPink}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -127,7 +127,7 @@
 
     <Style x:Key="LogOutButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#deabf5"/>
+        <Setter Property="Foreground" Value="{StaticResource ColorLightPink}"/>
         <Setter Property="Opacity" Value="1"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
@@ -150,7 +150,7 @@
                                           Margin="10,2"/>
                         </Border>
 
-                        <Border x:Name="SelectedUnderline" Visibility="Collapsed" BorderBrush="#deabf5" BorderThickness="2,2,2,2" CornerRadius="2,30,2,30"/>
+                        <Border x:Name="SelectedUnderline" Visibility="Collapsed" BorderBrush="{StaticResource ColorLightPink}" BorderThickness="2,2,2,2" CornerRadius="2,30,2,30"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
