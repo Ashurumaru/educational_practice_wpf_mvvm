@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--Original Theme-->
-    <ImageBrush x:Key="BackgroundBrush" ImageSource="\Images\cifrovoe_iskusstvo.png" Stretch="UniformToFill"/>
 
+    <ImageBrush x:Key="BackgroundBrush" ImageSource="{Binding SelectedImage}" Stretch="UniformToFill"/>
+    <!--\Images\cifrovoe_iskusstvo.png-->    
     <SolidColorBrush x:Key="ColorViolet" Color="#462AD8"/>
     <SolidColorBrush x:Key="ColorPink" Color="#DA34AE"/>
     <SolidColorBrush x:Key="ColorMagenta" Color="#8A16C1"/>

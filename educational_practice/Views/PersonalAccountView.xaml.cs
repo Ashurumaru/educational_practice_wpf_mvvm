@@ -17,6 +17,16 @@ namespace educational_practice.Views
             personalAccountView = this;
             viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
+            SetBackgroundGrid();
+        }
+
+        private void SetBackgroundGrid()
+        {
+            personalAccountView.BackgroundGrid.Background = viewModel.SetBackground();
+        }
+        private void btn_loadImage_Click(object sender, RoutedEventArgs e)
+        {
+            personalAccountView.BackgroundGrid.Background = viewModel.LoadBackground();
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
@@ -49,11 +59,6 @@ namespace educational_practice.Views
             {
                 if (e.LeftButton == MouseButtonState.Pressed) Window.GetWindow(this).DragMove();
             }
-        }
-
-        private void DockPanel_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            bool dragging = false;
         }
 
 
@@ -111,7 +116,6 @@ namespace educational_practice.Views
 
         private void TabItem_LogOut_click(object sender, MouseButtonEventArgs e)
         {
-            //починить
             LoginView loginView = LoginView.loginWindow;
             loginView.Show();
             Application.Current.Shutdown();

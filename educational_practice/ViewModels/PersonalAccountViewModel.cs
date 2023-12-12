@@ -1,8 +1,12 @@
 ﻿using educational_practice.Models;
 using educational_practice.Views;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace educational_practice.ViewModels
 {
@@ -19,15 +23,18 @@ namespace educational_practice.ViewModels
         private AddUserView addUserView = AddUserView.addUserView;
         private UpdateUserView updateUserView = UpdateUserView.updateUserView;
         private PersonalAccountView personalAccountView = PersonalAccountView.personalAccountView;
+        private ThemeMamager themeMamager = LoginViewModel.themeMamager;
 
         public static PersonalAccountViewModel personalAccount;
         public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
+
 
         private ObservableCollection<UserModel> users;
         private UserModel selectedUser;
         private UserModel CurrentUser;
 
         private Visibility stackPanelVisibility = Visibility.Hidden;
+        private BitmapImage selectedImage;
 
         public ObservableCollection<UserModel> Users
         {
@@ -161,6 +168,17 @@ namespace educational_practice.ViewModels
             get => $"ФИО: {CurrentUser.FirstName} {CurrentUser.LastName} {CurrentUser.MiddleName}";
         }
 
+
+        public BitmapImage SelectedImage
+        {
+            get => selectedImage; 
+            set
+            {
+                selectedImage = value;
+                OnPropertyChanged(nameof(SelectedImage));
+            }
+        }
+
         public ICommand AddUserFormCommand { get; private set; }
         public ICommand UpdateUserFormCommand { get; private set; }
         public ICommand AddUserCommand { get; private set; }
@@ -168,6 +186,7 @@ namespace educational_practice.ViewModels
         public ICommand DeleteUserCommand { get; private set; }
         public ICommand CloseCommand { get; private set; }
         public ICommand LogOutCommand { get; private set; }
+        public ICommand OpenImageFileDialogCommand { get; private set; }
 
         public PersonalAccountViewModel()
         {
@@ -342,5 +361,44 @@ namespace educational_practice.ViewModels
                 messageBox.ShowMessageBox(message);
             }
         }
+
+        public ImageBrush LoadBackground()
+        {
+            BitmapImage bitmapImage;
+            ImageBrush imageBrush;
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Изображения|*.png;*.jpg;*.jpeg|Все файлы|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                return null;
+            }
+            string filePath = openFileDialog.FileName;
+            bitmapImage = themeMamager.LoadImage(filePath);
+            imageBrush = new ImageBrush(bitmapImage);
+            return imageBrush;
+        }
+
+        public ImageBrush SetBackground()
+        {
+            BitmapImage bitmapImage;
+            ImageBrush imageBrush;
+            if (themeMamager.GetImage() == null)
+            {
+
+                bitmapImage = themeMamager.LoadDefaultImage();
+                imageBrush = new ImageBrush(bitmapImage);
+                return imageBrush;
+            }
+            else
+            {
+                bitmapImage = themeMamager.GetImage();
+                imageBrush = new ImageBrush(bitmapImage);
+                return imageBrush;
+            }
+        }
+
     }
 }

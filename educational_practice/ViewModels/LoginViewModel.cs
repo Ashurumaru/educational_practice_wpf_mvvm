@@ -1,8 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 using educational_practice.Models;
 using educational_practice.Views;
+using System.Windows.Forms;
+using System;
 
 namespace educational_practice.ViewModels
 {
@@ -20,7 +24,7 @@ namespace educational_practice.ViewModels
         public LoginView loginWindow = LoginView.loginWindow;
         public static LoginViewModel loginViewModel;
         readonly public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
-
+        public static ThemeMamager themeMamager;
         private UserModel currentUser;
 
         private Visibility firstStackPanelVisibility = Visibility.Visible;
@@ -156,7 +160,8 @@ namespace educational_practice.ViewModels
         public LoginViewModel()
         {
             loginViewModel = this;
-
+            if (themeMamager == null)
+                themeMamager = new ThemeMamager();
             LoginCommand = new RelayCommand(SignIn, CanSignIn);
             SignUpContinueCommand = new RelayCommand(SignUpContinue, CanSignUpContinue);
             SignUpCommand = new RelayCommand(SignUp, CanSignUp);
@@ -246,6 +251,25 @@ namespace educational_practice.ViewModels
             MiddleName = string.Empty;
             FirstPasswordForSignUp = string.Empty;
             SecondPasswordForSignUp = string.Empty;
+        }
+
+        public ImageBrush SetBackground()
+        {
+            BitmapImage bitmapImage;
+            ImageBrush imageBrush;
+            if (themeMamager.GetImage() == null)
+            {
+
+                bitmapImage = themeMamager.LoadDefaultImage();
+                imageBrush = new ImageBrush(bitmapImage);
+                return imageBrush;
+            }
+            else
+            {
+                bitmapImage = themeMamager.GetImage();
+                imageBrush = new ImageBrush(bitmapImage);
+                return imageBrush;
+            }
         }
     }
 }

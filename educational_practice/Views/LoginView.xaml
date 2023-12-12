@@ -8,7 +8,11 @@
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource LoginWindowStyle}">
     <Grid>
-        <Grid Background="{StaticResource BackgroundBrush}"/>
+        <Grid x:Name="BackgroundGrid">
+            <Grid.Background>
+                <ImageBrush  Stretch="UniformToFill"/>
+            </Grid.Background>
+        </Grid>
         <Grid Background="{StaticResource GradientBackgroundBrush}" Opacity="0.5"/>
         <Grid Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Border Style="{StaticResource LoginBorderStyle}"/>
@@ -54,7 +58,7 @@
             </TabControl>
         </Grid>
         <Grid VerticalAlignment="Top">
-            <DockPanel Name="titleBar" VerticalAlignment="Top" Height="32" LastChildFill="False" MouseDown="DockPanel_MouseDown" MouseUp="DockPanel_MouseUp" Background="Transparent">
+            <DockPanel Name="titleBar" VerticalAlignment="Top" Height="32" LastChildFill="False" MouseDown="DockPanel_MouseDown" Background="Transparent">
                 <Button Style="{StaticResource CloseButtonStyle}" x:Name="btn_close" Content="&#xE8BB;" Click="btn_close_Click" />
                 <Button Style="{StaticResource MaxMinButtonStyle}" x:Name="btn_maximize" Content="&#xE922;" Click="btn_maximize_Click"/>
                 <Button Style="{StaticResource MaxMinButtonStyle}" x:Name="btn_minimize" Content="&#xE921;" Click="btn_minimize_Click"/>

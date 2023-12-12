@@ -1,7 +1,11 @@
 ﻿using educational_practice.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using educational_practice.Models;
 
 namespace educational_practice.Views
 {
@@ -19,8 +23,13 @@ namespace educational_practice.Views
             loginWindow = this;
             viewModel = new LoginViewModel();
             DataContext = viewModel;
+            SetBackgroundGrid();
         }
 
+        private void SetBackgroundGrid()
+        {
+            loginWindow.BackgroundGrid.Background = viewModel.SetBackground();
+        }
         private void PasswordBox1_PasswordChanged(object sender, RoutedEventArgs e)
         {
             var passwordBox = (PasswordBox)sender;
@@ -70,11 +79,6 @@ namespace educational_practice.Views
             {
                 if (e.LeftButton == MouseButtonState.Pressed) Window.GetWindow(this).DragMove();
             }
-        }
-
-        private void DockPanel_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            bool dragging = false;
         }
 
         private void MaximizeWindow()

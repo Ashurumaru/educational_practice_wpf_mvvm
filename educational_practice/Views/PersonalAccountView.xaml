@@ -8,7 +8,11 @@
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource PersonalAccountWindowStyle}">
     <Grid>
-        <Grid Background="{StaticResource BackgroundBrush}"/>
+        <Grid x:Name="BackgroundGrid">
+            <Grid.Background>
+                <ImageBrush Stretch="UniformToFill"/>
+            </Grid.Background>
+        </Grid>
         <Grid Background="{StaticResource GradientBackgroundBrush}" Opacity="0.5"/>
         <Grid Margin="32, 32">
             <Border Style="{StaticResource PersonalAccountBorderStyle}"/>
@@ -51,7 +55,8 @@
 
                         <TabItem Header="Settings" Style="{StaticResource PersonalAccountItemStyle}">
                             <StackPanel>
-
+                                <Button Click="btn_loadImage_Click" Content="Выбрать фото" />
+                                <!--<Image Source="{Binding SelectedImage}" Stretch="UniformToFill"/>-->
                             </StackPanel>
                         </TabItem>
                     </TabControl>
@@ -62,7 +67,7 @@
             </Border>
         </Grid>
         <Grid VerticalAlignment="Top">
-            <DockPanel Name="titleBar" VerticalAlignment="Top" Height="32" LastChildFill="False" MouseDown="DockPanel_MouseDown" MouseUp="DockPanel_MouseUp" Background="Transparent">
+            <DockPanel Name="titleBar" VerticalAlignment="Top" Height="32" LastChildFill="False" MouseDown="DockPanel_MouseDown" Background="Transparent">
                 <Button Style="{StaticResource CloseButtonStyle}" x:Name="btn_close" Content="&#xE8BB;" Click="btn_close_Click"/>
                 <Button Style="{StaticResource MaxMinButtonStyle}" x:Name="btn_maximize" Content="&#xE922;" Click="btn_maximize_Click"/>
                 <Button Style="{StaticResource MaxMinButtonStyle}" x:Name="btn_minimize" Content="&#xE921;" Click="btn_minimize_Click"/>
