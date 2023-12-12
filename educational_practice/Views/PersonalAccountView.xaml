@@ -60,7 +60,7 @@
                         </TabItem>
                     </TabControl>
                     <Grid>
-                        <Button Margin="0 0 0 0" Command="" Content="Log Out" Style="{StaticResource LogOutButtonStyle}"/>
+                        <Button Margin="0 0 0 0" Command="{Binding LogOutCommand}" Content="Log Out" Style="{StaticResource LogOutButtonStyle}"/>
                     </Grid>
                 </Grid>
             </Border>

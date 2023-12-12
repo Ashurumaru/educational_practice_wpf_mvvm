@@ -24,8 +24,8 @@ namespace educational_practice.ViewModels
         private string CurrentFio;
         private AddUserView addUserView = AddUserView.addUserView;
         private UpdateUserView updateUserView = UpdateUserView.updateUserView;
-        //private PersonalAccountView personalAccountView = PersonalAccountView.personalAccountView;
-        //private LoginViewModel LoginViewModel = LoginViewModel.loginViewModel;
+        private PersonalAccountView personalAccountView = PersonalAccountView.personalAccountView;
+        private LoginViewModel LoginViewModel = LoginViewModel.loginViewModel;
         readonly public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
         private ObservableCollection<UserModel> users;
         private UserModel selectedUser;
@@ -159,7 +159,7 @@ namespace educational_practice.ViewModels
         public RelayCommand UpdateUserCommand { get; private set; }
         public RelayCommand DeleteUserCommand { get; private set; }
         public RelayCommand CloseCommand { get; private set; }  
-        //public RelayCommand LogOutCommand { get; private set; }
+        public RelayCommand LogOutCommand { get; private set; }
         public PersonalAccountViewModel()
         {
             LoadCurrentUser();
@@ -171,14 +171,14 @@ namespace educational_practice.ViewModels
             CloseCommand = new RelayCommand(CloseForm);
             UpdateUserFormCommand = new RelayCommand(OpenUpdateUserWindow);
             AddUserFormCommand = new RelayCommand(OpenAddUserForm);
-            //LogOutCommand = new RelayCommand(LogOut);
+            LogOutCommand = new RelayCommand(LogOut);
         }
-        //private void LogOut(object parameter)
-        //{
-        //    LoginView window = new LoginView();
-        //    window.Show();
-        //    personalAccountView.Close();
-        //}
+        private void LogOut(object parameter)
+        {
+            LoginView window = new LoginView();
+            window.Show();
+            personalAccountView.Close();
+        }
         private void LoadCurrentUser()
         {
             LoginViewModel loginViewModel = LoginViewModel.loginViewModel;
@@ -229,6 +229,12 @@ namespace educational_practice.ViewModels
         {
             if (SelectedUser != null)
             {
+                Login = SelectedUser.Login;
+                Password = SelectedUser.Password;
+                FirstName = SelectedUser.FirstName;
+                LastName = SelectedUser.LastName;
+                MiddleName = SelectedUser.MiddleName;
+                AccessLevel = SelectedUser.AccessLevel;
                 updateUserView = new UpdateUserView();
                 updateUserView.ShowDialog();
             }
@@ -253,7 +259,7 @@ namespace educational_practice.ViewModels
         private void UpdateUser(object parameter)
         {
             if (SelectedUser != null)
-            {
+            {        
                 dbLogic.UpdateUser(SelectedUser);
                 Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
                 updateUserView?.Close();

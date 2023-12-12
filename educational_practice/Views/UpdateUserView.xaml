@@ -27,12 +27,12 @@
                 </StackPanel>
 
                 <StackPanel Margin="10,30,20,0" Grid.Column="1" Orientation="Vertical">
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding FirstName}" Margin="0,2,10,0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding LastName}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding MiddleName}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding Login}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding Password}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AccessLevel}" Margin="0 10 10 0"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding FirstName, Mode=TwoWay}" Margin="0,2,10,0"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding LastName, Mode=TwoWay}" Margin="0 10 10 0"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding MiddleName, Mode=TwoWay}" Margin="0 10 10 0"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding Login, Mode=TwoWay}" Margin="0 10 10 0"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding Password, Mode=TwoWay}" Margin="0 10 10 0"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AccessLevel, Mode=TwoWay}" Margin="0 10 10 0"/>
                 </StackPanel>
             </Grid>
         </Border>
