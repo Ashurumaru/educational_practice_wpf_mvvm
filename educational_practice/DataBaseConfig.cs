@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace educational_practice
+﻿namespace educational_practice
 {
     internal class DataBaseConfig
     {
