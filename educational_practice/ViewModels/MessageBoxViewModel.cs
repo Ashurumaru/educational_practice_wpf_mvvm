@@ -25,10 +25,10 @@ namespace educational_practice.ViewModels
         public ICommand CloseCommand { get; private set; }
         public MessageBoxViewModel()
         {
-            CloseCommand = new RelayCommand(Close);
+            CloseCommand = new RelayCommand(CloseMessageBox);
         }
 
-        private void Close(object parameter)
+        private void CloseMessageBox(object parameter)
         {
             MessageBoxView messageBox = MessageBoxView.messageBox;
             messageBox.Close();

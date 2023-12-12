@@ -1,13 +1,7 @@
 ﻿using educational_practice.Models;
 using educational_practice.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace educational_practice.ViewModels
@@ -21,17 +15,20 @@ namespace educational_practice.ViewModels
         private string lastName;
         private string middleName;
         private int accessLevel;
-        private string CurrentFio;
+
         private AddUserView addUserView = AddUserView.addUserView;
         private UpdateUserView updateUserView = UpdateUserView.updateUserView;
         private PersonalAccountView personalAccountView = PersonalAccountView.personalAccountView;
-        private LoginViewModel LoginViewModel = LoginViewModel.loginViewModel;
+
         public static PersonalAccountViewModel personalAccount;
-        readonly public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
+        public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
+
         private ObservableCollection<UserModel> users;
         private UserModel selectedUser;
         private UserModel CurrentUser;
-        Visibility stackPanelVisibility = Visibility.Hidden;
+
+        private Visibility stackPanelVisibility = Visibility.Hidden;
+
         public ObservableCollection<UserModel> Users
         {
             get => users;
@@ -41,6 +38,7 @@ namespace educational_practice.ViewModels
                 OnPropertyChanged(nameof(Users));
             }
         }
+
         public int Id
         {
             get => id;
@@ -106,7 +104,7 @@ namespace educational_practice.ViewModels
             get => accessLevel;
             set
             {
-                if (accessLevel == 0 || accessLevel == 1)
+                if (IsValidAccessLevel(value))
                 {
                     accessLevel = value;
                     OnPropertyChanged(nameof(AccessLevel));
@@ -145,10 +143,12 @@ namespace educational_practice.ViewModels
         {
             get => CurrentUser.AccessLevel;
         }
+
         string currentAccessLevelView = "Уровень доступа: ";
         public string CurrentAccessLevelView
         {
-            get {
+            get
+            {
                 if (CurrentAccessLevel == 1)
                     return currentAccessLevelView += "Администратор";
                 else
@@ -161,19 +161,20 @@ namespace educational_practice.ViewModels
             get => $"ФИО: {CurrentUser.FirstName} {CurrentUser.LastName} {CurrentUser.MiddleName}";
         }
 
-        public RelayCommand AddUserFormCommand { get; private set; }
-        public RelayCommand UpdateUserFormCommand { get; private set; }
-        public RelayCommand AddUserCommand { get; private set; }
-        public RelayCommand UpdateUserCommand { get; private set; }
-        public RelayCommand DeleteUserCommand { get; private set; }
-        public RelayCommand CloseCommand { get; private set; }
-        public RelayCommand LogOutCommand { get; private set; }
+        public ICommand AddUserFormCommand { get; private set; }
+        public ICommand UpdateUserFormCommand { get; private set; }
+        public ICommand AddUserCommand { get; private set; }
+        public ICommand UpdateUserCommand { get; private set; }
+        public ICommand DeleteUserCommand { get; private set; }
+        public ICommand CloseCommand { get; private set; }
+        public ICommand LogOutCommand { get; private set; }
+
         public PersonalAccountViewModel()
         {
             personalAccount = this;
             LoadCurrentUser();
             VisibilityEditingButton();
-            Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+            UpdateUserCollection();
             AddUserCommand = new RelayCommand(AddNewUser, CanAddUser);
             UpdateUserCommand = new RelayCommand(UpdateUser, CanUpdateUser);
             DeleteUserCommand = new RelayCommand(DeleteUser);
@@ -182,6 +183,7 @@ namespace educational_practice.ViewModels
             AddUserFormCommand = new RelayCommand(OpenAddUserForm);
             LogOutCommand = new RelayCommand(LogOut);
         }
+
         private void LogOut(object parameter)
         {
             LoginView window = new LoginView();
@@ -214,12 +216,17 @@ namespace educational_practice.ViewModels
             updateUserView?.Close();
         }
 
+        private void UpdateUserCollection()
+        {
+            Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+        }
+
         private void AddNewUser(object parameter)
         {
             if (!dbLogic.LoginExists(Login))
             {
                 dbLogic.CreateUser(Login, Password, FirstName, LastName, MiddleName);
-                Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+                UpdateUserCollection();
                 string message = "Пользователь был добавлен.";
                 MessageBoxViewModel messageBox = new MessageBoxViewModel();
                 messageBox.ShowMessageBox(message);
@@ -262,7 +269,7 @@ namespace educational_practice.ViewModels
 
         private bool CanAddUser(object parameter)
         {
-            return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName); 
+            return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName);
         }
 
         private bool CanUpdateUser(object parameter)
@@ -270,11 +277,16 @@ namespace educational_practice.ViewModels
             return !string.IsNullOrWhiteSpace(Login) && !string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName) && !string.IsNullOrWhiteSpace(AccessLevel.ToString());
         }
 
+        private bool IsValidAccessLevel(int level)
+        {
+            return level == 0 || level == 1;
+        }
+
         private void UpdateUser(object parameter)
         {
             if (SelectedUser != null)
             {
-                if (SelectedUser.AccessLevel == 0 || SelectedUser.AccessLevel == 1)
+                if (IsValidAccessLevel(AccessLevel))
                 {
                     SelectedUser.Login = Login;
                     SelectedUser.Password = Password;
@@ -286,10 +298,10 @@ namespace educational_practice.ViewModels
                     string message = "Пользователь обнавлен.";
                     MessageBoxViewModel messageBox = new MessageBoxViewModel();
                     messageBox.ShowMessageBox(message);
-                    Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
+                    UpdateUserCollection();
                     CloseForm();
                 }
-                else 
+                else
                 {
                     string message = "Уровень доступа может быть только 1 или 0 (0 - user, 1 - admin)";
                     MessageBoxViewModel messageBox = new MessageBoxViewModel();

@@ -1,34 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Diagnostics;
 using System.Windows;
-using System.Diagnostics;
-using System.Data.Entity;
+using System.Windows.Input;
 using educational_practice.Models;
-using System.Data.SqlClient;
-using System.Data;
 using educational_practice.Views;
 
 namespace educational_practice.ViewModels
 {
     internal class LoginViewModel : BaseViewModel
     {
-        readonly public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
-        readonly LoginView loginWindow = LoginView.loginWindow;
-        public static LoginViewModel loginViewModel;
-        private UserModel currentUser;
         private string login;
         private string password;
         private string errorMessage;
         private string firstName;
         private string lastName;
-        private string middleName; 
+        private string middleName;
         private string firstPasswordForSignUp;
         private string secondPasswordForSignUp;
+
+        public LoginView loginWindow = LoginView.loginWindow;
+        public static LoginViewModel loginViewModel;
+        readonly public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
+
+        private UserModel currentUser;
+
         private Visibility firstStackPanelVisibility = Visibility.Visible;
         private Visibility secondStackPanelVisibility = Visibility.Hidden;
         private bool isSignInTabSelected = true;
@@ -123,6 +117,7 @@ namespace educational_practice.ViewModels
             }
         }
 
+
         public Visibility FirstStackPanelVisibility
         {
             get => firstStackPanelVisibility;
@@ -161,6 +156,7 @@ namespace educational_practice.ViewModels
         public LoginViewModel()
         {
             loginViewModel = this;
+
             LoginCommand = new RelayCommand(SignIn, CanSignIn);
             SignUpContinueCommand = new RelayCommand(SignUpContinue, CanSignUpContinue);
             SignUpCommand = new RelayCommand(SignUp, CanSignUp);
@@ -199,28 +195,6 @@ namespace educational_practice.ViewModels
             }
         }
 
-        public void SwapVisibility()
-        {
-            FirstStackPanelVisibility = FirstStackPanelVisibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
-            SecondStackPanelVisibility = SecondStackPanelVisibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
-        }
-
-        private void SwapTabItemOnSignIn()
-        {
-            IsSignInTabSelected = true;
-        }
-
-        private void ClearFields()
-        {
-            Login = String.Empty;
-            Password = String.Empty;
-            FirstName = String.Empty;
-            LastName = String.Empty;
-            MiddleName = String.Empty;
-            FirstPasswordForSignUp = String.Empty;
-            SecondPasswordForSignUp = String.Empty; 
-        }
-
         private void SignUp(object parameter)
         {
             dbLogic.CreateUser(Login, FirstPasswordForSignUp, FirstName, LastName, MiddleName);
@@ -250,6 +224,28 @@ namespace educational_practice.ViewModels
         private void OpenGitHub(object parameter)
         {
             Process.Start("https://github.com/Ashurumaru");
+        }
+
+        public void SwapVisibility()
+        {
+            FirstStackPanelVisibility = FirstStackPanelVisibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+            SecondStackPanelVisibility = SecondStackPanelVisibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+        }
+
+        private void SwapTabItemOnSignIn()
+        {
+            IsSignInTabSelected = true;
+        }
+
+        private void ClearFields()
+        {
+            Login = string.Empty;
+            Password = string.Empty;
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            MiddleName = string.Empty;
+            FirstPasswordForSignUp = string.Empty;
+            SecondPasswordForSignUp = string.Empty;
         }
     }
 }

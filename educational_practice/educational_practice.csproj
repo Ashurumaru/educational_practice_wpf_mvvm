@@ -305,7 +305,6 @@
     <Compile Include="DataBaseConfig.cs" />
     <Compile Include="Models\DataBaseLogicModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\DataBaseViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxViewModel.cs" />
     <Compile Include="ViewModels\PersonalAccountViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />

@@ -21,58 +21,58 @@ namespace educational_practice.Models
         public bool IsValidLogin(string login, string password)
         {
             bool validUser;
+
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
+
                 command.CommandText = "SELECT * FROM [User] WHERE Login=@Login AND Password=@Password";
-                command.Parameters.Add("@Login", SqlDbType.VarChar).Value = login;
-                command.Parameters.Add("@Password", SqlDbType.VarChar).Value = password;
+                command.Parameters.AddWithValue("@Login", login);
+                command.Parameters.AddWithValue("@Password", password);
+
                 validUser = command.ExecuteScalar() != null;
             }
+
             return validUser;
         }
 
         public bool LoginExists(string login)
         {
             bool exists;
+
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT(*) FROM [User] WHERE Login=@Login";
-                command.Parameters.Add("@Login", SqlDbType.VarChar).Value = login;
 
-                int count = (int)command.ExecuteScalar();
-                exists = count > 0;
+                command.CommandText = "SELECT COUNT(*) FROM [User] WHERE Login=@Login";
+                command.Parameters.AddWithValue("@Login", login);
+
+                exists = (int)command.ExecuteScalar() > 0;
             }
+
             return exists;
         }
 
         public void CreateUser(string login, string password, string firstName, string lastName, string middleName)
         {
-
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
+
                 command.CommandText = "INSERT INTO [User] (Login, Password, FirstName, LastName, MiddleName, AccessLevel) " +
                                       "VALUES (@Login, @Password, @FirstName, @LastName, @MiddleName, 0)";
-                command.Parameters.Add("@Login", SqlDbType.VarChar).Value = login;
-                command.Parameters.Add("@Password", SqlDbType.VarChar).Value = password;
-                command.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = firstName;
-                command.Parameters.Add("@LastName", SqlDbType.VarChar).Value = lastName;
-                if (middleName != null)
-                {
-                    command.Parameters.Add("@MiddleName", SqlDbType.VarChar).Value = middleName;
-                }
-                else
-                {
-                    command.Parameters.Add("@MiddleName", SqlDbType.VarChar).Value = " ";
-                }
+                command.Parameters.AddWithValue("@Login", login);
+                command.Parameters.AddWithValue("@Password", password);
+                command.Parameters.AddWithValue("@FirstName", firstName);
+                command.Parameters.AddWithValue("@LastName", lastName);
+                command.Parameters.AddWithValue("@MiddleName", (object)middleName ?? DBNull.Value);
+
                 command.ExecuteNonQuery();
             }
         }
@@ -84,15 +84,16 @@ namespace educational_practice.Models
             {
                 connection.Open();
                 command.Connection = connection;
+
                 command.CommandText = "UPDATE [User] SET Login=@Login, Password=@Password, FirstName=@FirstName, " +
                                       "LastName=@LastName, MiddleName=@MiddleName, AccessLevel=@AccessLevel WHERE Id=@UserId";
-                command.Parameters.Add("@UserId", SqlDbType.Int).Value = user.Id;
-                command.Parameters.Add("@Login", SqlDbType.VarChar).Value = user.Login;
-                command.Parameters.Add("@Password", SqlDbType.VarChar).Value = user.Password;
-                command.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = user.FirstName;
-                command.Parameters.Add("@LastName", SqlDbType.VarChar).Value = user.LastName;
-                command.Parameters.Add("@MiddleName", SqlDbType.VarChar).Value = user.MiddleName;
-                command.Parameters.Add("@AccessLevel", SqlDbType.Int).Value = user.AccessLevel;
+                command.Parameters.AddWithValue("@UserId", user.Id);
+                command.Parameters.AddWithValue("@Login", user.Login);
+                command.Parameters.AddWithValue("@Password", user.Password);
+                command.Parameters.AddWithValue("@FirstName", user.FirstName);
+                command.Parameters.AddWithValue("@LastName", user.LastName);
+                command.Parameters.AddWithValue("@MiddleName", (object)user.MiddleName ?? DBNull.Value);
+                command.Parameters.AddWithValue("@AccessLevel", user.AccessLevel);
 
                 command.ExecuteNonQuery();
             }
@@ -105,8 +106,9 @@ namespace educational_practice.Models
             {
                 connection.Open();
                 command.Connection = connection;
+
                 command.CommandText = "DELETE FROM [User] WHERE Id=@UserId";
-                command.Parameters.Add("@UserId", SqlDbType.Int).Value = userId;
+                command.Parameters.AddWithValue("@UserId", userId);
 
                 command.ExecuteNonQuery();
             }
@@ -115,10 +117,12 @@ namespace educational_practice.Models
         public List<UserModel> GetAllUsers()
         {
             List<UserModel> users = new List<UserModel>();
+
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand("SELECT * FROM [User]", connection))
             {
                 connection.Open();
+
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -128,7 +132,7 @@ namespace educational_practice.Models
                             Id = Convert.ToInt32(reader["Id"]),
                             FirstName = reader["FirstName"].ToString(),
                             LastName = reader["LastName"].ToString(),
-                            MiddleName = reader["MiddleName"].ToString(),
+                            MiddleName = reader["MiddleName"] == DBNull.Value ? null : reader["MiddleName"].ToString(),
                             Password = reader["Password"].ToString(),
                             Login = reader["Login"].ToString(),
                             AccessLevel = Convert.ToInt32(reader["AccessLevel"])
@@ -137,6 +141,7 @@ namespace educational_practice.Models
                     }
                 }
             }
+
             return users;
         }
 
@@ -149,8 +154,9 @@ namespace educational_practice.Models
             {
                 connection.Open();
                 command.Connection = connection;
+
                 command.CommandText = "SELECT * FROM [User] WHERE Login=@Login";
-                command.Parameters.Add("@Login", SqlDbType.VarChar).Value = login;
+                command.Parameters.AddWithValue("@Login", login);
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -161,7 +167,7 @@ namespace educational_practice.Models
                             Id = Convert.ToInt32(reader["Id"]),
                             FirstName = reader["FirstName"].ToString(),
                             LastName = reader["LastName"].ToString(),
-                            MiddleName = reader["MiddleName"].ToString(),
+                            MiddleName = reader["MiddleName"] == DBNull.Value ? null : reader["MiddleName"].ToString(),
                             Password = reader["Password"].ToString(),
                             Login = reader["Login"].ToString(),
                             AccessLevel = Convert.ToInt32(reader["AccessLevel"])
@@ -169,6 +175,7 @@ namespace educational_practice.Models
                     }
                 }
             }
+
             return user;
         }
     }
