@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="/Styles/InputBoxStyles.xaml"/>
                 <ResourceDictionary Source="/Styles/TabControlStyles.xaml"/>
                 <ResourceDictionary Source="/Styles/TextStyles.xaml"/>
+                <ResourceDictionary Source="/Styles/CheckBoxStyle.xaml"/>
                 <ResourceDictionary Source="/Styles/WindowStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

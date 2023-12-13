@@ -167,4 +167,35 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="LoadImageButton" TargetType="{x:Type Button}" BasedOn="{StaticResource LogOutButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border Name="Border" BorderBrush="Transparent" BorderThickness="1" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="ContentSite"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  ContentSource="Content"
+                                  Margin="10,2"/>
+                        </Border>
+
+                        <Border x:Name="SelectedUnderline" Visibility="Collapsed" BorderBrush="{StaticResource ColorLightPink}" BorderThickness="2,2,2,2" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SelectedUnderline" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="Border" Property="Opacity" Value="1"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <BlurEffect Radius="2"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

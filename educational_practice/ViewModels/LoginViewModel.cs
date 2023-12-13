@@ -259,7 +259,6 @@ namespace educational_practice.ViewModels
             ImageBrush imageBrush;
             if (themeMamager.GetImage() == null)
             {
-
                 bitmapImage = themeMamager.LoadDefaultImage();
                 imageBrush = new ImageBrush(bitmapImage);
                 return imageBrush;

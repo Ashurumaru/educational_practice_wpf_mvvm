@@ -22,8 +22,8 @@
 
     <Style x:Key="PersonalAccountWindowStyle" TargetType="{x:Type Window}" BasedOn="{StaticResource MainWindow}">
         <Setter Property="DataContext" Value="local:PersonalAccountViewModel"/>
-        <Setter Property="Height" Value="450"/>
-        <Setter Property="Width" Value="800"/>
+        <Setter Property="Height" Value="540"/>
+        <Setter Property="Width" Value="960"/>
     </Style>
 
     <Style x:Key="AddUserWindowStyle" TargetType="{x:Type Window}" BasedOn="{StaticResource MainWindow}">

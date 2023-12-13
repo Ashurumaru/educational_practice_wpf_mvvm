@@ -10,7 +10,7 @@
     <Grid>
         <Grid x:Name="BackgroundGrid">
             <Grid.Background>
-                <ImageBrush  Stretch="UniformToFill"/>
+                <ImageBrush Stretch="UniformToFill"/>
             </Grid.Background>
         </Grid>
         <Grid Background="{StaticResource GradientBackgroundBrush}" Opacity="0.5"/>

@@ -1,5 +1,6 @@
 ﻿using educational_practice.ViewModels;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace educational_practice.Views
@@ -13,10 +14,11 @@ namespace educational_practice.Views
         private PersonalAccountViewModel viewModel;
         public PersonalAccountView()
         {
-            InitializeComponent();
             personalAccountView = this;
             viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
+            InitializeComponent();
+
             SetBackgroundGrid();
         }
 
@@ -26,7 +28,21 @@ namespace educational_practice.Views
         }
         private void btn_loadImage_Click(object sender, RoutedEventArgs e)
         {
-            personalAccountView.BackgroundGrid.Background = viewModel.LoadBackground();
+            if (checkBox_image.IsChecked == true)
+            {
+                personalAccountView.BackgroundGrid.Background = viewModel.LoadBackground();
+            }
+        }
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (personalAccountView.BackgroundGrid.Background == null)
+                personalAccountView.BackgroundGrid.Background = viewModel.SetBackground();
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            personalAccountView.BackgroundGrid.Background = null;
+
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)

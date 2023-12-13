@@ -19,6 +19,7 @@ namespace educational_practice.ViewModels
         private string lastName;
         private string middleName;
         private int accessLevel;
+        private string selectedStyle;
 
         private AddUserView addUserView = AddUserView.addUserView;
         private UpdateUserView updateUserView = UpdateUserView.updateUserView;
@@ -136,6 +137,29 @@ namespace educational_practice.ViewModels
             }
         }
 
+        public string SelectedStyle
+        {
+            get { return selectedStyle; }
+            set
+            {
+                if (selectedStyle != value)
+                {
+                    selectedStyle = value;
+                    OnPropertyChanged(nameof(SelectedUser));
+                }
+            }
+        }
+
+        public BitmapImage SelectedImage
+        {
+            get => selectedImage;
+            set
+            {
+                selectedImage = value;
+                OnPropertyChanged(nameof(SelectedImage));
+            }
+        }
+
         public Visibility StackPanelVisibility
         {
             get => stackPanelVisibility;
@@ -166,17 +190,6 @@ namespace educational_practice.ViewModels
         public string FIO
         {
             get => $"ФИО: {CurrentUser.FirstName} {CurrentUser.LastName} {CurrentUser.MiddleName}";
-        }
-
-
-        public BitmapImage SelectedImage
-        {
-            get => selectedImage; 
-            set
-            {
-                selectedImage = value;
-                OnPropertyChanged(nameof(SelectedImage));
-            }
         }
 
         public ICommand AddUserFormCommand { get; private set; }
@@ -275,7 +288,7 @@ namespace educational_practice.ViewModels
                 LastName = SelectedUser.LastName;
                 MiddleName = SelectedUser.MiddleName;
                 AccessLevel = SelectedUser.AccessLevel;
-                updateUserView = new UpdateUserView();
+                updateUserView =new UpdateUserView();
                 updateUserView.ShowDialog();
             }
             else
@@ -399,6 +412,39 @@ namespace educational_practice.ViewModels
                 return imageBrush;
             }
         }
+        public void SwapStyle()
+        {
+            switch (SelectedStyle)
+            {
+                case "Original":
+                    SwapStyleToOriginal();
+                    break;
+                case "Dark":
+                    SwapStyleToDark();
+                    break;
+                case "White":
+                    SwapStyleToWhite();
+                    break;
+                default:
+                    string message = "Произошла ошибка.";
+                    MessageBoxViewModel messageBox = new MessageBoxViewModel();
+                    messageBox.ShowMessageBox(message);
+                    break;
+            }
+        }
+        private void SwapStyleToOriginal()
+        {
 
+        }
+
+        private void SwapStyleToDark()
+        {
+
+        }
+
+        private void SwapStyleToWhite()
+        {
+
+        }
     }
 }
