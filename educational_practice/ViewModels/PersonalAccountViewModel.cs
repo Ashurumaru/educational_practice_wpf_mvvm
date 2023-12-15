@@ -25,7 +25,7 @@ namespace educational_practice.ViewModels
         private UpdateUserView updateUserView = UpdateUserView.updateUserView;
         private PersonalAccountView personalAccountView = PersonalAccountView.personalAccountView;
         private ThemeMamager themeMamager = LoginViewModel.themeMamager;
-
+        
         public static PersonalAccountViewModel personalAccount;
         public DataBaseLogicModel dbLogic = new DataBaseLogicModel($"Data Source={DataBaseConfig.DataSource};Initial Catalog={DataBaseConfig.InitialCatalog};Integrated Security={DataBaseConfig.IntegratedSecurity}");
 
@@ -197,7 +197,6 @@ namespace educational_practice.ViewModels
         public ICommand AddUserCommand { get; private set; }
         public ICommand UpdateUserCommand { get; private set; }
         public ICommand DeleteUserCommand { get; private set; }
-        public ICommand CloseCommand { get; private set; }
         public ICommand LogOutCommand { get; private set; }
         public ICommand OpenImageFileDialogCommand { get; private set; }
 
@@ -210,7 +209,6 @@ namespace educational_practice.ViewModels
             AddUserCommand = new RelayCommand(AddNewUser, CanAddUser);
             UpdateUserCommand = new RelayCommand(UpdateUser, CanUpdateUser);
             DeleteUserCommand = new RelayCommand(DeleteUser);
-            CloseCommand = new RelayCommand(Close);
             UpdateUserFormCommand = new RelayCommand(OpenUpdateUserWindow);
             AddUserFormCommand = new RelayCommand(OpenAddUserForm);
             LogOutCommand = new RelayCommand(LogOut);
@@ -236,18 +234,6 @@ namespace educational_practice.ViewModels
             }
         }
 
-
-        private void Close(object parameter)
-        {
-            CloseForm();
-        }
-
-        private void CloseForm()
-        {
-            addUserView?.Close();
-            updateUserView?.Close();
-        }
-
         private void UpdateUserCollection()
         {
             Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
@@ -262,7 +248,7 @@ namespace educational_practice.ViewModels
                 string message = "Пользователь был добавлен.";
                 MessageBoxViewModel messageBox = new MessageBoxViewModel();
                 messageBox.ShowMessageBox(message);
-                CloseForm();
+
             }
             else
             {
@@ -331,7 +317,7 @@ namespace educational_practice.ViewModels
                     MessageBoxViewModel messageBox = new MessageBoxViewModel();
                     messageBox.ShowMessageBox(message);
                     UpdateUserCollection();
-                    CloseForm();
+
                 }
                 else
                 {
@@ -342,7 +328,7 @@ namespace educational_practice.ViewModels
             }
             else
             {
-                string message = "Выберите пользователя для изменения.";
+                string message = "Перезайдите в форму обновления данных пользователя.";
                 MessageBoxViewModel messageBox = new MessageBoxViewModel();
                 messageBox.ShowMessageBox(message);
             }
@@ -411,40 +397,6 @@ namespace educational_practice.ViewModels
                 imageBrush = new ImageBrush(bitmapImage);
                 return imageBrush;
             }
-        }
-        public void SwapStyle()
-        {
-            switch (SelectedStyle)
-            {
-                case "Original":
-                    SwapStyleToOriginal();
-                    break;
-                case "Dark":
-                    SwapStyleToDark();
-                    break;
-                case "White":
-                    SwapStyleToWhite();
-                    break;
-                default:
-                    string message = "Произошла ошибка.";
-                    MessageBoxViewModel messageBox = new MessageBoxViewModel();
-                    messageBox.ShowMessageBox(message);
-                    break;
-            }
-        }
-        private void SwapStyleToOriginal()
-        {
-
-        }
-
-        private void SwapStyleToDark()
-        {
-
-        }
-
-        private void SwapStyleToWhite()
-        {
-
         }
     }
 }

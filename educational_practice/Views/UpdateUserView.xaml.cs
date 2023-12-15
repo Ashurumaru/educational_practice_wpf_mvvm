@@ -1,5 +1,6 @@
 ﻿using educational_practice.ViewModels;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace educational_practice.Views
 {
@@ -15,6 +16,11 @@ namespace educational_practice.Views
             InitializeComponent();
             updateUserView = this;
             DataContext = viewModel;
+        }
+
+        public void btn_close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

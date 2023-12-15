@@ -18,5 +18,10 @@ namespace educational_practice.Views
             viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
         }
+
+        private void btn_close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using educational_practice.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace educational_practice.Views
 {
@@ -20,6 +23,23 @@ namespace educational_practice.Views
             InitializeComponent();
 
             SetBackgroundGrid();
+            List<string> styles = new List<string> { "Original", "Dark", "White" };
+            cmbBoxStyle.SelectionChanged += ThemeChange;
+            cmbBoxStyle.ItemsSource = styles;
+            cmbBoxStyle.SelectedItem = "Original";
+        }
+
+        private void ThemeChange(object sender, SelectionChangedEventArgs e)
+        {
+            string style = cmbBoxStyle.Text;
+            // определяем путь к файлу ресурсов
+            var uri = new Uri(style + ".xaml", UriKind.Relative);
+            // загружаем словарь ресурсов
+            ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
+            // очищаем коллекцию ресурсов приложения
+            Application.Current.Resources.Clear();
+            // добавляем загруженный словарь ресурсов
+            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
 
         private void SetBackgroundGrid()
@@ -135,6 +155,62 @@ namespace educational_practice.Views
             LoginView loginView = LoginView.loginWindow;
             loginView.Show();
             Application.Current.Shutdown();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ResourceDictionary resourceDictionary = Application.Current.Resources;
+            string value = cmbBoxStyle.Text;
+            switch (value)
+            {
+                case "Original":
+                    SwapStyleToOriginal(resourceDictionary);
+                    break;
+                case "Dark":
+                    SwapStyleToDark(resourceDictionary);
+                    break;
+                case "White":
+                    SwapStyleToWhite(resourceDictionary);
+                    break;
+                default:
+                    string message = "Произошла ошибка.";
+                    MessageBoxViewModel messageBox = new MessageBoxViewModel();
+                    messageBox.ShowMessageBox(message);
+                    break;
+            }
+        }
+
+        private void SwapStyleToOriginal(ResourceDictionary resourceDictionary)
+        {
+            resourceDictionary["ColorViolet"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#462AD8"));
+            resourceDictionary["ColorPink"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#DA34AE"));
+            resourceDictionary["ColorMagenta"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8A16C1"));
+            resourceDictionary["ColorLightPink"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#deabf5"));
+            resourceDictionary["ColorPinkMouseOver"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ba50eb"));
+            resourceDictionary["ColorText"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ba50eb"));
+            resourceDictionary["ColorLogInBorder"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#BC2CD8")) { Opacity = 0.4 };
+        }
+
+        private void SwapStyleToDark(ResourceDictionary resourceDictionary)
+        {
+            resourceDictionary["ColorViolet"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#171A8C"));
+            resourceDictionary["ColorPink"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8E116B"));
+            resourceDictionary["ColorMagenta"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#58077D"));
+            resourceDictionary["ColorLightPink"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#80389F"));
+            resourceDictionary["ColorPinkMouseOver"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#701A99"));
+            resourceDictionary["ColorText"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#701A99"));
+            resourceDictionary["ColorLogInBorder"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#760E8C")) { Opacity = 0.4 };
+        }
+
+        private void SwapStyleToWhite(ResourceDictionary resourceDictionary)
+        {
+            resourceDictionary["ColorViolet"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#9496EC"));
+            resourceDictionary["ColorPink"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ED89D1"));
+            resourceDictionary["ColorMagenta"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#BD73E0"));
+            resourceDictionary["ColorLightPink"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EDD0FA"));
+            resourceDictionary["ColorPinkMouseOver"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D99CF5"));
+            resourceDictionary["ColorText"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D99CF5"));
+            resourceDictionary["ColorLogInBorder"] = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E6FD2E")) { Opacity = 0.4 };
         }
     }
 }

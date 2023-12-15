@@ -35,7 +35,7 @@
             </Grid>
         </Border>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,210,0,0">
-            <Button Content="Отмена" Command="{Binding CloseCommand}" Style="{StaticResource ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,48,10" VerticalAlignment="Bottom"/>
+            <Button Content="Отмена" Click="btn_close_Click" Style="{StaticResource ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,48,10" VerticalAlignment="Bottom"/>
             <Button Content="Добавить" Command="{Binding AddUserCommand}" Style="{StaticResource ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,0,10" VerticalAlignment="Bottom"/>
         </StackPanel>
     </Grid>
