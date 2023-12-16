@@ -24,7 +24,7 @@
    <ul>
         <li><strong>BaseViewModel.cs:</strong>Базовый класс для всех ViewModel, реализующий интерфейс INotifyPropertyChanged для обновления представлений.</li>
         <li><strong>RelayCommand.cs:</strong> Реализация команды, используемой для связывания действий в представлениях с методами в ViewModel.</li>
-        <li><strong>PersonalAccountViewModel.cs:</strong> ViewModel, управляющая логикой личного кабинета, включая добавление, обновление, удаление пользователей, а также сменой тем и фона.</li>
+        <li><strong>PersonalAccountViewModel.cs:</strong> ViewModel, управляющая логикой личного кабинета, включая отображение, добавление, обновление, удаление пользователей, а также сменой тем и фона.</li>
         <li><strong>LoginViewModel.cs: </strong>ViewModel для логики входа в систему, регистрации и обработки ошибок в процессе входа.</li>
         <li><strong>MessageBoxViewModel.cs:</strong> ViewModel для управления окном MessageBox</li>
     </ul> 
@@ -42,6 +42,9 @@
         <li><strong>Entity Framework:</strong> Используется для взаимодействия с базой данных SQL Server.</li>
         <li><strong>MVVM:</strong> Проект следует паттерну MVVM (Model-View-ViewModel) для более эффективного управления данными и представлением.</li>
     </ul>
+        <h2>Примеры</h2>
+        <h3>Окно входа</h3>
+    
     <h2>Контакты</h2>
     <ul>
         <li>Автор: <a href="https://github.com/Ashurumaru/">ashuramaru</a></li>
