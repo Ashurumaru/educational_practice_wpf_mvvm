@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:educational_practice.Views"
         mc:Ignorable="d"
-        Style="{StaticResource AddUserWindowStyle}"
+        Style="{StaticResource  AddUserWindowStyle}"
         WindowStartupLocation="CenterScreen">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Border  Style="{StaticResource MessageBorderStyle}"/>
+        <Border  Style="{DynamicResource  MessageBorderStyle}"/>
         <Border Width="Auto" Height="Auto" Padding="30">
             <Grid Margin="10,-20,10,8">
                 <Grid.ColumnDefinitions>
@@ -17,26 +17,26 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Margin="10 10 10 0" Grid.Column="0" Orientation="Vertical">
-                    <TextBlock Style="{StaticResource StandartText}" Text="Login:" FontSize="14"  Margin="0 19 0 0"/>
-                    <TextBlock Style="{StaticResource StandartText}" Text="Password:" FontSize="14"  Margin="0 22 0 0"/>
-                    <TextBlock Style="{StaticResource StandartText}" Text="First Name:" FontSize="14" Margin="0 17 0 0"/>
-                    <TextBlock Style="{StaticResource StandartText}" Text="Last Name:" FontSize="14"  Margin="0 18 0 0"/>
-                    <TextBlock Style="{StaticResource StandartText}" Text="Middle Name:" FontSize="14"  Margin="0 19 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="Login:" FontSize="14"  Margin="0 19 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="Password:" FontSize="14"  Margin="0 22 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="First Name:" FontSize="14" Margin="0 17 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="Last Name:" FontSize="14"  Margin="0 18 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="Middle Name:" FontSize="14"  Margin="0 19 0 0"/>
                 </StackPanel>
 
                 <StackPanel Margin="10 10 10 0"  Width="154" Height="188" Grid.Column="1" Orientation="Vertical">
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding Login, Mode=OneWayToSource}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding Password, Mode=OneWayToSource}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding FirstName, Mode=OneWayToSource}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding LastName, Mode=OneWayToSource}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding MiddleName, Mode=OneWayToSource}" Margin="0 10 10 0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding Login, Mode=OneWayToSource}" Margin="0 10 10 0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding Password, Mode=OneWayToSource}" Margin="0 10 10 0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding FirstName, Mode=OneWayToSource}" Margin="0 10 10 0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding LastName, Mode=OneWayToSource}" Margin="0 10 10 0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding MiddleName, Mode=OneWayToSource}" Margin="0 10 10 0"/>
 
                 </StackPanel>
             </Grid>
         </Border>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,210,0,0">
-            <Button Content="Отмена" Click="btn_close_Click" Style="{StaticResource ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,48,10" VerticalAlignment="Bottom"/>
-            <Button Content="Добавить" Command="{Binding AddUserCommand}" Style="{StaticResource ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,0,10" VerticalAlignment="Bottom"/>
+            <Button Content="Отмена" Click="btn_close_Click" Style="{DynamicResource  ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,48,10" VerticalAlignment="Bottom"/>
+            <Button Content="Добавить" Command="{Binding AddUserCommand}" Style="{DynamicResource  ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,0,10" VerticalAlignment="Bottom"/>
         </StackPanel>
     </Grid>
 </Window>

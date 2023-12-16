@@ -9,10 +9,6 @@ namespace educational_practice.Models
         private BitmapImage defaultImage;
         private BitmapImage currentImage;
 
-        public ThemeMamager()
-        {
-
-        }
         public BitmapImage LoadImage(string filePath)
         {
             try
@@ -50,5 +46,18 @@ namespace educational_practice.Models
             return currentImage;
         }
 
+        public BitmapImage GetWhiteImage()
+        {
+            string whiteImagePath = "pack://application:,,,/Images/white.jpg";
+            currentImage = new BitmapImage(new Uri(whiteImagePath));
+            return currentImage;
+        }
+
+        public BitmapImage GetDarkImage()
+        {
+            string darkImagePath = "pack://application:,,,/Images/dark.png";
+            currentImage = new BitmapImage(new Uri(darkImagePath));
+            return currentImage;
+        }
     }
 }

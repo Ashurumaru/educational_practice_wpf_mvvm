@@ -21,25 +21,29 @@ namespace educational_practice.Views
             viewModel = new PersonalAccountViewModel();
             DataContext = viewModel;
             InitializeComponent();
-
             SetBackgroundGrid();
-            List<string> styles = new List<string> { "Original", "Dark", "White" };
             cmbBoxStyle.SelectionChanged += ThemeChange;
-            cmbBoxStyle.ItemsSource = styles;
-            cmbBoxStyle.SelectedItem = "Original";
         }
-
         private void ThemeChange(object sender, SelectionChangedEventArgs e)
         {
-            string style = cmbBoxStyle.Text;
-            // определяем путь к файлу ресурсов
-            var uri = new Uri(style + ".xaml", UriKind.Relative);
-            // загружаем словарь ресурсов
+            ComboBoxItem selectedItem = (ComboBoxItem)cmbBoxStyle.SelectedItem;
+            string style = selectedItem.Content.ToString(); 
+            var uri = new Uri($"/Styles/{style}.xaml", UriKind.Relative);
             ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
-            // очищаем коллекцию ресурсов приложения
             Application.Current.Resources.Clear();
-            // добавляем загруженный словарь ресурсов
             Application.Current.Resources.MergedDictionaries.Add(resourceDict);
+            switch (style)
+            {
+                case "Dark":
+                    personalAccountView.BackgroundGrid.Background = viewModel.SetdarkBackground();
+                    break;
+                case "White":
+                    personalAccountView.BackgroundGrid.Background = viewModel.SetWhiteBackground();
+                    break;
+                case "Original":
+                    personalAccountView.BackgroundGrid.Background = viewModel.SetWhiteBackground();
+                    break;
+            }
         }
 
         private void SetBackgroundGrid()

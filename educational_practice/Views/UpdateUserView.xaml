@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:educational_practice.ViewModels"
         mc:Ignorable="d"
-        Style="{StaticResource UpdateUserWindowStyle}"
+        Style="{StaticResource  UpdateUserWindowStyle}"
         WindowStartupLocation="CenterScreen">
     
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Border Style="{StaticResource MessageBorderStyle}"/>
+        <Border Style="{DynamicResource  MessageBorderStyle}"/>
         <Border Width="auto" Height="auto" Padding="20, 0">
             <Grid Margin="10 -20 10 8">
                 <Grid.ColumnDefinitions>
@@ -18,27 +18,27 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Margin="10 10 10 0" Grid.Column="0" Orientation="Vertical">
-                    <TextBlock Style="{StaticResource StandartText}" Text="Accsess Level:" FontSize="14"  Margin="0 20 0 0"/>
-                    <TextBlock Style="{StaticResource StandartText}" Text="Login:" FontSize="14"  Margin="0 20 0 0"/>
-                    <TextBlock Style="{StaticResource StandartText}" Text="Password:" FontSize="14"  Margin="0 20 0 0"/>
-                    <TextBlock Style="{StaticResource StandartText}" Text="First Name:" FontSize="14" Margin="0 20 0 0"/>
-                    <TextBlock Style="{StaticResource StandartText}" Text="Last Name:" FontSize="14"  Margin="0 18 0 0"/>
-                    <TextBlock Style="{StaticResource StandartText}" Text="Middle Name:" FontSize="14"  Margin="0 20 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="Accsess Level:" FontSize="14"  Margin="0 20 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="Login:" FontSize="14"  Margin="0 20 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="Password:" FontSize="14"  Margin="0 20 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="First Name:" FontSize="14" Margin="0 20 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="Last Name:" FontSize="14"  Margin="0 18 0 0"/>
+                    <TextBlock Style="{DynamicResource  StandartText}" Text="Middle Name:" FontSize="14"  Margin="0 20 0 0"/>
                 </StackPanel>
 
                 <StackPanel Margin="10,10,10,18" Width="154" Height="auto" Grid.Column="1" Orientation="Vertical">
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding AccessLevel}" Margin="0,15,10,0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding Login}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding Password}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding FirstName}" Margin="0,10,10,0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding LastName}" Margin="0 10 10 0"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding MiddleName}" Margin="0 10 10 0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding AccessLevel}" Margin="0,15,10,0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding Login}" Margin="0 10 10 0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding Password}" Margin="0 10 10 0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding FirstName}" Margin="0,10,10,0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding LastName}" Margin="0 10 10 0"/>
+                    <TextBox Style="{DynamicResource  TextBoxStyle}" Text="{Binding MiddleName}" Margin="0 10 10 0"/>
                 </StackPanel>
             </Grid>
         </Border>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,220,0,0">
-            <Button Content="Отмена" Click="btn_close_Click" Style="{StaticResource ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,48,10" VerticalAlignment="Bottom"/>
-            <Button Content="Изменить" Command="{Binding UpdateUserCommand}" Style="{StaticResource ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,0,10" VerticalAlignment="Bottom"/>
+            <Button Content="Отмена" Click="btn_close_Click" Style="{DynamicResource  ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,48,10" VerticalAlignment="Bottom"/>
+            <Button Content="Изменить" Command="{Binding UpdateUserCommand}" Style="{DynamicResource  ButtonStyle}" FontSize="10" Width="100" Height="30"  Margin="0,0,0,10" VerticalAlignment="Bottom"/>
         </StackPanel>
     </Grid>
 </Window>

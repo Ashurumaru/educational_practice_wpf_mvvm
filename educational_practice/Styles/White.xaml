@@ -2,20 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--coloors-->
-        <ImageBrush x:Key="BackgroundBrush" ImageSource="{Binding SelectedImage}" Stretch="UniformToFill"/>
-        <!--\Images\cifrovoe_iskusstvo.png-->
+    <ImageBrush x:Key="BackgroundBrush" ImageSource="{Binding SelectedImage}" Stretch="UniformToFill"/>
     <SolidColorBrush x:Key="ColorViolet" Color="#9496EC"/>
     <SolidColorBrush x:Key="ColorPink" Color="#ED89D1"/>
-    <SolidColorBrush x:Key="ColorMagenta" Color="#BD73E0"/>
-    <SolidColorBrush x:Key="ColorLightPink" Color="#EDD0FA"/>
+    <SolidColorBrush x:Key="ColorButton" Color="#7701FF"/>
+    <SolidColorBrush x:Key="ColorLightPink" Color="#101828"/>
     <SolidColorBrush x:Key="ColorPinkMouseOver" Color="#D99CF5"/>
-    <SolidColorBrush x:Key="ColorText" Color="#D99CF5"/>
-    <SolidColorBrush x:Key="ColorLogInBorder" Opacity="0.4" Color="#E6FD2E"/>
-
-        <LinearGradientBrush x:Key="GradientBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
-            <GradientStop Color="#462132" Offset="0"/>
-            <GradientStop Color="#A21431" Offset="0.75"/>
-            <GradientStop Color="#213234" Offset="1"/>
+    <SolidColorBrush x:Key="ColorText" Color="#101828"/>
+    <SolidColorBrush x:Key="ColorLogInBorder" Opacity="0.5" Color="#101829"/>
+    <SolidColorBrush x:Key="ColorButtonPressed" Color="#5F00CD"/>
+    <LinearGradientBrush x:Key="GradientBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="#DDF7F1" Offset="0"/>
+        <GradientStop Color="#DDF7F1" Offset="0.75"/>
+        <GradientStop Color="#DDF7F1" Offset="1"/>
         </LinearGradientBrush>
 
         <!--checkBox-->
@@ -81,7 +80,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="Fill" TargetName="line" Value="{StaticResource ColorPink}"/>
-                                <Setter Property="Fill" TargetName="spot" Value="{StaticResource ColorMagenta}"/>
+                            <Setter Property="Fill" TargetName="spot" Value="{StaticResource ColorButton}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -91,7 +90,7 @@
 
         <!--Button-->
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="{StaticResource ColorMagenta}"/>
+        <Setter Property="Background" Value="{StaticResource ColorButton}"/>
             <Setter Property="Foreground" Value="{StaticResource ColorText}"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="Montserrat"/>
@@ -107,7 +106,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource ColorPinkMouseOver}"/>
+                    <Setter Property="Background" Value="{StaticResource ColorButtonPressed}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -116,7 +115,7 @@
             <Setter Property="TextBlock.FontFamily" Value="Segoe MDL2 Assets"/>
             <Setter Property="TextBlock.Foreground" Value="{StaticResource ColorText}"/>
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
-            <Setter Property="Foreground" Value="{StaticResource ColorText}"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorLightPink}"/>
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="Opacity" Value="0.1"/>
             <Setter Property="Margin" Value="0,0,0,0"/>
@@ -215,7 +214,7 @@
 
         <Style x:Key="LogOutButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{StaticResource ColorLightPink}"/>
+        <Setter Property="Foreground" Value="{StaticResource ColorButton}"/>
             <Setter Property="Opacity" Value="1"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
@@ -238,7 +237,7 @@
                                       Margin="10,2"/>
                             </Border>
 
-                            <Border x:Name="SelectedUnderline" Visibility="Collapsed" BorderBrush="{StaticResource ColorLightPink}" BorderThickness="2,2,2,2" CornerRadius="2,30,2,30"/>
+                        <Border x:Name="SelectedUnderline" Visibility="Collapsed" BorderBrush="{StaticResource ColorButton}" BorderThickness="2,2,2,2" CornerRadius="2,30,2,30"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -269,7 +268,7 @@
                               Margin="10,2"/>
                             </Border>
 
-                            <Border x:Name="SelectedUnderline" Visibility="Collapsed" BorderBrush="{StaticResource ColorLightPink}" BorderThickness="2,2,2,2" />
+                        <Border x:Name="SelectedUnderline" Visibility="Collapsed" BorderBrush="{StaticResource ColorButton}" BorderThickness="2,2,2,2" />
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -382,17 +381,17 @@
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="MinWidth" Value="0" />
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="MinHeight" Value="42" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Foreground" Value="#666666" />
+            <Setter Property="Foreground" Value="{StaticResource ColorLightPink}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
                         <Grid>
                             <Border  BorderThickness="0,0,0,2"  BorderBrush="#DCDCDC"  Width="Auto" Background="White">
-                                <Grid Background="White" HorizontalAlignment="Center">
+                                <Grid Background="Transparent" HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
@@ -495,12 +494,12 @@
             <Setter Property="SelectionMode" Value="Single"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="CanUserSortColumns" Value="True"/>
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="CanUserResizeColumns" Value="false"/>
             <Setter Property="BorderBrush" Value="#DEDEDE" />
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Foreground" Value="#666666"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorLightPink}"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="GridLinesVisibility" Value="Horizontal" />
             <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
@@ -510,7 +509,7 @@
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="HorizontalGridLinesBrush">
                 <Setter.Value>
-                    <SolidColorBrush Color="#DEDEDE"/>
+                    <SolidColorBrush Color="Transparent"/>
                 </Setter.Value>
             </Setter>
             <Setter Property="VerticalGridLinesBrush">
@@ -520,157 +519,157 @@
             </Setter>
         </Style>
 
-        <!--InputBox-->
-        <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontFamily" Value="Montserrat"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#462AD8"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
-                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+    <!--InputBox-->
+    <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource ColorLightPink}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#462AD8"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PasswordBoxStyle" TargetType="{x:Type PasswordBox}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource ColorLightPink}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#462AD8"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--tabControl-->
+    <Style x:Key="TabControlLoginViewStyle" TargetType="{x:Type TabControl}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TabStripPlacement" Value="Top"/>
+        <Setter Property="Foreground" Value="{DynamicResource ColorLightPink}"/>
+        <Setter Property="Height" Value="360"/>
+        <Setter Property="MaxHeight" Value="650"/>
+        <Setter Property="MaxWidth" Value="550"/>
+        <Setter Property="Margin" Value="15"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="30"/>
+    </Style>
+
+    <Style x:Key="TabControlPersonalAccountStyle" TargetType="{x:Type TabControl}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TabStripPlacement" Value="Left"/>
+        <Setter Property="Foreground" Value="{DynamicResource ColorLightPink}"/>
+        <Setter Property="Margin" Value="0 0 0 0"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="20"/>
+    </Style>
+
+    <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource ColorLightPink}"/>
+        <Setter Property="Opacity" Value="0.7"/>
+        <Setter Property="Width" Value="77"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid>
+                        <Border Name="Border" BorderBrush="Transparent" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="ContentSite"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          ContentSource="Header"
+                          Margin="10,2"/>
                         </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                        <Border x:Name="SelectedUnderline" BorderBrush="{DynamicResource ColorLightPink}" BorderThickness="0,0,0,2" CornerRadius="2,2,0,0" Visibility="Collapsed"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                            <Setter Property="Opacity" Value="1"/>
+                            <Setter TargetName="SelectedUnderline" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-        <Style x:Key="PasswordBoxStyle" TargetType="{x:Type PasswordBox}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontFamily" Value="Montserrat"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#462AD8"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type PasswordBox}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
-                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+    <Style x:Key="SignInTabItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}">
+        <Setter Property="FontFamily" Value="Dhurjati"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="{DynamicResource ColorLightPink}"/>
+    </Style>
+
+    <Style x:Key="SignUpTabItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}">
+        <Setter Property="FontFamily" Value="Dhurjati"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="{DynamicResource ColorLightPink}"/>
+    </Style>
+
+    <Style x:Key="PersonalAccountItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}">
+        <Setter Property="FontFamily" Value="Dhurjati"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="{DynamicResource ColorLightPink}"/>
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Margin" Value="0 0 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid>
+                        <Border Name="Border" BorderBrush="Transparent" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="ContentSite"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              ContentSource="Header"
+              Margin="10,12"/>
                         </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                        <Border x:Name="SelectedUnderline" BorderBrush="{DynamicResource ColorLightPink}" BorderThickness="2,2,2,2" CornerRadius="2,30,2,30" Visibility="Collapsed"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                            <Setter Property="Opacity" Value="1"/>
+                            <Setter TargetName="SelectedUnderline" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-        <!--tabControl-->
-        <Style x:Key="TabControlLoginViewStyle" TargetType="{x:Type TabControl}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="TabStripPlacement" Value="Top"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Height" Value="360"/>
-            <Setter Property="MaxHeight" Value="650"/>
-            <Setter Property="MaxWidth" Value="550"/>
-            <Setter Property="Margin" Value="15"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="30"/>
-        </Style>
+    <!--Text-->
+    <Style x:Key="StandartText" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="Dhurjati"/>
+        <Setter Property="Foreground" Value="{DynamicResource ColorLightPink}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="FontWeight" Value="Black"/>
+        <Setter Property="Margin" Value="10 0 0 5"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Opacity" Value="0.7"/>
+    </Style>
 
-        <Style x:Key="TabControlPersonalAccountStyle" TargetType="{x:Type TabControl}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="TabStripPlacement" Value="Left"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Margin" Value="0 0 0 0"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Padding" Value="20"/>
-        </Style>
-
-        <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Opacity" Value="0.7"/>
-            <Setter Property="Width" Value="77"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TabItem">
-                        <Grid>
-                            <Border Name="Border" BorderBrush="Transparent" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
-                                <ContentPresenter x:Name="ContentSite"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  ContentSource="Header"
-                                  Margin="10,2"/>
-                            </Border>
-                            <Border x:Name="SelectedUnderline" BorderBrush="#deabf5" BorderThickness="0,0,0,2" CornerRadius="2,2,0,0" Visibility="Collapsed"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="Transparent"/>
-                                <Setter Property="Opacity" Value="1"/>
-                                <Setter TargetName="SelectedUnderline" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="SignInTabItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}">
-            <Setter Property="FontFamily" Value="Dhurjati"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Foreground" Value="#deabf5"/>
-        </Style>
-
-        <Style x:Key="SignUpTabItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}">
-            <Setter Property="FontFamily" Value="Dhurjati"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Foreground" Value="#deabf5"/>
-        </Style>
-
-        <Style x:Key="PersonalAccountItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource TabItemStyle}">
-            <Setter Property="FontFamily" Value="Dhurjati"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Foreground" Value="#deabf5"/>
-            <Setter Property="Opacity" Value="1"/>
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="Margin" Value="0 0 0 0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TabItem">
-                        <Grid>
-                            <Border Name="Border" BorderBrush="Transparent" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}">
-                                <ContentPresenter x:Name="ContentSite"
-                      VerticalAlignment="Center"
-                      HorizontalAlignment="Center"
-                      ContentSource="Header"
-                      Margin="10,12"/>
-                            </Border>
-                            <Border x:Name="SelectedUnderline" BorderBrush="#deabf5" BorderThickness="2,2,2,2" CornerRadius="2,30,2,30" Visibility="Collapsed"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="Transparent"/>
-                                <Setter Property="Opacity" Value="1"/>
-                                <Setter TargetName="SelectedUnderline" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!--Text-->
-        <Style x:Key="StandartText" TargetType="{x:Type TextBlock}">
-            <Setter Property="FontFamily" Value="Dhurjati"/>
-            <Setter Property="Foreground" Value="#deabf5"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="FontWeight" Value="Black"/>
-            <Setter Property="Margin" Value="10 0 0 5"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Opacity" Value="0.7"/>
-        </Style>
-
-        <Style x:Key="ErrorText" TargetType="{x:Type TextBlock}">
+    <Style x:Key="ErrorText" TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily" Value="Montserrat"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="Red"/>
@@ -715,4 +714,93 @@
             <Setter Property="Width" Value="450"/>
         </Style>
 
+
+    <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
+        <Setter Property="Background" Value="#F0F0F0"/>
+        <Setter Property="BorderBrush" Value="#CCCCCC"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Segoe UI, Arial, sans-serif"/>
+        <Setter Property="Foreground" Value="#333333"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <ToggleButton x:Name="ToggleButton" 
+                                   Grid.Column="2" 
+                                   Focusable="False"
+                                   IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                   ClickMode="Press">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="30" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border x:Name="Border" 
+                                             Grid.ColumnSpan="2"
+                                             CornerRadius="5"
+                                             Background="{TemplateBinding Background}"
+                                             BorderBrush="{TemplateBinding BorderBrush}"
+                                             BorderThickness="{TemplateBinding BorderThickness}"/>
+                                        <Border Grid.Column="0" 
+                                             CornerRadius="5,0,0,5" 
+                                             Margin="1" 
+                                             Background="{TemplateBinding Background}" 
+                                             BorderBrush="{TemplateBinding BorderBrush}" 
+                                             BorderThickness="{TemplateBinding BorderThickness}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <Path x:Name="Arrow" 
+                                           Grid.Column="1"     
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"
+                                           Data="M 0 0 L 6 6 L 12 0 Z"
+                                           Fill="{TemplateBinding Foreground}"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <Popup x:Name="Popup" 
+                            AllowsTransparency="True" 
+                            Grid.Column="2" 
+                            IsOpen="{TemplateBinding IsDropDownOpen}" 
+                            PopupAnimation="Slide">
+                            <Grid x:Name="DropDown" 
+                               SnapsToDevicePixels="True"
+                               MinWidth="{TemplateBinding ActualWidth}"
+                               MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border x:Name="DropDownBorder" 
+                                     Background="{TemplateBinding Background}"
+                                     BorderBrush="{TemplateBinding BorderBrush}"
+                                     BorderThickness="1"/>
+                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasItems" Value="False">
+                            <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#888888"/>
+                            <Setter Property="Background" Value="#F4F4F4"/>
+                        </Trigger>
+                        <Trigger Property="IsGrouping" Value="True">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

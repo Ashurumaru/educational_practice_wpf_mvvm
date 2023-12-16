@@ -6,51 +6,51 @@
         xmlns:custom="clr-namespace:educational_practice.CustomControls"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource LoginWindowStyle}">
+        Style="{StaticResource  LoginWindowStyle}">
     <Grid>
         <Grid x:Name="BackgroundGrid">
             <Grid.Background>
                 <ImageBrush Stretch="UniformToFill"/>
             </Grid.Background>
         </Grid>
-        <Grid Background="{StaticResource GradientBackgroundBrush}" Opacity="0.5"/>
+        <Grid Background="{DynamicResource  GradientBackgroundBrush}" Opacity="0.5"/>
         <Grid Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Border Style="{StaticResource LoginBorderStyle}"/>
-            <TabControl x:Name="tabControl" Style="{StaticResource TabControlLoginViewStyle}" Margin="15,0,15,0">
-                <TabItem Header="Sign In" Style="{StaticResource SignInTabItemStyle}" IsSelected="{Binding IsSignInTabSelected}">
+            <Border Style="{DynamicResource  LoginBorderStyle}"/>
+            <TabControl x:Name="tabControl" Style="{DynamicResource  TabControlLoginViewStyle}" Margin="15,0,15,0">
+                <TabItem Header="Sign In" Style="{DynamicResource  SignInTabItemStyle}" IsSelected="{Binding IsSignInTabSelected}">
                     <StackPanel Width="200" Height="320" >
-                        <TextBlock Text="Sign in your account" Style="{StaticResource StandartText}" Margin="0 0 0 30" HorizontalAlignment="Center" FontSize="17"/>
-                        <TextBlock Text="Login" Style="{StaticResource StandartText}" FontSize="12" Opacity="0.7"/>
-                        <TextBox Width="200" Text="{Binding Login, Mode=OneWayToSource}" Margin="0 0 0 10" Height="30" Style="{StaticResource TextBoxStyle}"/>
-                        <TextBlock Text="Password" Style="{StaticResource StandartText}" FontSize="12" Opacity="0.7"/>
-                        <PasswordBox Width="200" Name="password" Margin="0 0 0 56" Height="30" PasswordChanged="PasswordBox1_PasswordChanged" Style="{StaticResource PasswordBoxStyle}"/>
-                        <Button Content="Sign In" Command="{Binding LoginCommand}" Width="200" Height="30" RenderTransformOrigin="0.5,0.5" Style="{StaticResource ButtonStyle}"/>
-                        <TextBlock Text="{Binding ErrorMessage}" Style="{StaticResource StandartText}" FontSize="10" Background="#cb2821" Opacity="0.7"  Margin="0 8 0 0"/>
+                        <TextBlock Text="Sign in your account" Style="{DynamicResource  StandartText}" Margin="0 0 0 30" HorizontalAlignment="Center" FontSize="17"/>
+                        <TextBlock Text="Login" Style="{DynamicResource  StandartText}" FontSize="12" Opacity="0.7"/>
+                        <TextBox Width="200" Text="{Binding Login, Mode=OneWayToSource}" Margin="0 0 0 10" Height="30" Style="{DynamicResource  TextBoxStyle}"/>
+                        <TextBlock Text="Password" Style="{DynamicResource  StandartText}" FontSize="12" Opacity="0.7"/>
+                        <PasswordBox Width="200" Name="password" Margin="0 0 0 56" Height="30" PasswordChanged="PasswordBox1_PasswordChanged" Style="{DynamicResource  PasswordBoxStyle}"/>
+                        <Button Content="Sign In" Command="{Binding LoginCommand}" Width="200" Height="30" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource  ButtonStyle}"/>
+                        <TextBlock Text="{Binding ErrorMessage}" Style="{DynamicResource  StandartText}" FontSize="10" Background="#cb2821" Opacity="0.7"  Margin="0 8 0 0"/>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="Sign Up" Style="{StaticResource SignUpTabItemStyle}">
+                <TabItem Header="Sign Up" Style="{DynamicResource  SignUpTabItemStyle}">
                     <Grid Width="200" Height="320" >
                         <StackPanel Visibility="{Binding FirstStackPanelVisibility}">
-                            <TextBlock Text="Sign up your account" Style="{StaticResource StandartText}" Margin="0 0 0 10" HorizontalAlignment="Center" FontSize="17"/>
-                            <TextBlock Text="Login" Style="{StaticResource StandartText}" />
-                            <TextBox Width="200" Text="{Binding Login}" Margin="0 0 0 10" Height="30" Style="{StaticResource TextBoxStyle}"/>
-                            <TextBlock Text="Password" Style="{StaticResource StandartText}"/>
-                            <PasswordBox Width="200"  Margin="0 0 0 10" Name="firstPasswordForSignUp" Height="30" PasswordChanged="PasswordBox2_PasswordChanged" Style="{StaticResource PasswordBoxStyle}"/>
-                            <TextBlock Text="Confirm password" Style="{StaticResource StandartText}" />
-                            <PasswordBox Width="200"  Margin="0 0 0 16" Name="secondPasswordForSignUp" Height="30" PasswordChanged="PasswordBox3_PasswordChanged" Style="{StaticResource PasswordBoxStyle}"/>
-                            <Button Content="Continue" Command="{Binding SignUpContinueCommand}" Width="200" Height="30" RenderTransformOrigin="0.5,0.5" Style="{StaticResource ButtonStyle}"/>
-                            <TextBlock Text="{Binding ErrorMessage}" Style="{StaticResource StandartText}" FontSize="10" Background="#cb2821" Opacity="0.7"  Margin="0 8 0 0"/>
+                            <TextBlock Text="Sign up your account" Style="{DynamicResource  StandartText}" Margin="0 0 0 10" HorizontalAlignment="Center" FontSize="17"/>
+                            <TextBlock Text="Login" Style="{DynamicResource  StandartText}" />
+                            <TextBox Width="200" Text="{Binding Login}" Margin="0 0 0 10" Height="30" Style="{DynamicResource  TextBoxStyle}"/>
+                            <TextBlock Text="Password" Style="{DynamicResource  StandartText}"/>
+                            <PasswordBox Width="200"  Margin="0 0 0 10" Name="firstPasswordForSignUp" Height="30" PasswordChanged="PasswordBox2_PasswordChanged" Style="{DynamicResource  PasswordBoxStyle}"/>
+                            <TextBlock Text="Confirm password" Style="{DynamicResource  StandartText}" />
+                            <PasswordBox Width="200"  Margin="0 0 0 16" Name="secondPasswordForSignUp" Height="30" PasswordChanged="PasswordBox3_PasswordChanged" Style="{DynamicResource  PasswordBoxStyle}"/>
+                            <Button Content="Continue" Command="{Binding SignUpContinueCommand}" Width="200" Height="30" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource  ButtonStyle}"/>
+                            <TextBlock Text="{Binding ErrorMessage}" Style="{DynamicResource  StandartText}" FontSize="10" Background="#cb2821" Opacity="0.7"  Margin="0 8 0 0"/>
                         </StackPanel>
                         <StackPanel Visibility="{Binding SecondStackPanelVisibility}" Height="320" Margin="-20,0,-20,0" Width="240">
-                            <TextBlock Text="Sign up your account" Style="{StaticResource StandartText}" Margin="0 0 0 10" HorizontalAlignment="Center" FontSize="17"/>
-                            <TextBlock Text="FirstName" Style="{StaticResource StandartText}" Margin="35 0 0 5"/>
-                            <TextBox Width="200" Text="{Binding FirstName}" Margin="0 0 0 10" Height="30" Style="{StaticResource TextBoxStyle}"/>
-                            <TextBlock Text="LastName" Style="{StaticResource StandartText}" Margin="35 0 0 5"/>
-                            <TextBox Width="200" Text="{Binding LastName}" Margin="0 0 0 10" Height="30" Style="{StaticResource TextBoxStyle}"/>
-                            <TextBlock Text="MiddleName (optional)" Style="{StaticResource StandartText}" Margin="35 0 0 5"/>
-                            <TextBox Width="200" Text="{Binding MiddleName}" Margin="0 0 0 16"  Height="30" Style="{StaticResource TextBoxStyle}"/>
-                            <Button Content="Continue" Command="{Binding SignUpCommand}" Width="200" Height="30" RenderTransformOrigin="0.5,0.5" Style="{StaticResource ButtonStyle}"/>
-                            <TextBlock Text="{Binding ErrorMessage}" Style="{StaticResource ErrorText}" Background="#cb2821"  Margin="0 8 0 0"/>
+                            <TextBlock Text="Sign up your account" Style="{DynamicResource  StandartText}" Margin="0 0 0 10" HorizontalAlignment="Center" FontSize="17"/>
+                            <TextBlock Text="FirstName" Style="{DynamicResource  StandartText}" Margin="35 0 0 5"/>
+                            <TextBox Width="200" Text="{Binding FirstName}" Margin="0 0 0 10" Height="30" Style="{DynamicResource  TextBoxStyle}"/>
+                            <TextBlock Text="LastName" Style="{DynamicResource  StandartText}" Margin="35 0 0 5"/>
+                            <TextBox Width="200" Text="{Binding LastName}" Margin="0 0 0 10" Height="30" Style="{DynamicResource  TextBoxStyle}"/>
+                            <TextBlock Text="MiddleName (optional)" Style="{DynamicResource  StandartText}" Margin="35 0 0 5"/>
+                            <TextBox Width="200" Text="{Binding MiddleName}" Margin="0 0 0 16"  Height="30" Style="{DynamicResource  TextBoxStyle}"/>
+                            <Button Content="Continue" Command="{Binding SignUpCommand}" Width="200" Height="30" RenderTransformOrigin="0.5,0.5" Style="{DynamicResource  ButtonStyle}"/>
+                            <TextBlock Text="{Binding ErrorMessage}" Style="{DynamicResource  ErrorText}" Background="#cb2821"  Margin="0 8 0 0"/>
                         </StackPanel>
                         <custom:ChevronLeft Width="45" Height="45" Margin="145,0,0,255" MouseDown="ChevronLeft_Click" Visibility="{Binding SecondStackPanelVisibility}"/>
                     </Grid>
@@ -59,12 +59,12 @@
         </Grid>
         <Grid VerticalAlignment="Top">
             <DockPanel Name="titleBar" VerticalAlignment="Top" Height="32" LastChildFill="False" MouseDown="DockPanel_MouseDown" Background="Transparent">
-                <Button Style="{StaticResource CloseButtonStyle}" x:Name="btn_close" Content="&#xE8BB;" Click="btn_close_Click" />
-                <Button Style="{StaticResource MaxMinButtonStyle}" x:Name="btn_maximize" Content="&#xE922;" Click="btn_maximize_Click"/>
-                <Button Style="{StaticResource MaxMinButtonStyle}" x:Name="btn_minimize" Content="&#xE921;" Click="btn_minimize_Click"/>
+                <Button Style="{DynamicResource  CloseButtonStyle}" x:Name="btn_close" Content="&#xE8BB;" Click="btn_close_Click" />
+                <Button Style="{DynamicResource  MaxMinButtonStyle}" x:Name="btn_maximize" Content="&#xE922;" Click="btn_maximize_Click"/>
+                <Button Style="{DynamicResource  MaxMinButtonStyle}" x:Name="btn_minimize" Content="&#xE921;" Click="btn_minimize_Click"/>
             </DockPanel>
         </Grid>
-        <TextBlock Text="Github: Ashurumaru" Style="{StaticResource StandartText}" Margin="0 0 0 4" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" Opacity="0.5">
+        <TextBlock Text="Github: Ashurumaru" Style="{DynamicResource  StandartText}" Margin="0 0 0 4" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="12" Opacity="0.5">
             <TextBlock.InputBindings>
                 <MouseBinding Gesture="LeftClick" Command="{Binding OpenGitHubCommand}" />
             </TextBlock.InputBindings>

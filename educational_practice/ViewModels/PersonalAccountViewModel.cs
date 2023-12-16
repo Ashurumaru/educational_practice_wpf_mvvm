@@ -316,8 +316,7 @@ namespace educational_practice.ViewModels
                     string message = "Пользователь обнавлен.";
                     MessageBoxViewModel messageBox = new MessageBoxViewModel();
                     messageBox.ShowMessageBox(message);
-                    UpdateUserCollection();
-
+                    Users = new ObservableCollection<UserModel>(dbLogic.GetAllUsers());
                 }
                 else
                 {
@@ -397,6 +396,26 @@ namespace educational_practice.ViewModels
                 imageBrush = new ImageBrush(bitmapImage);
                 return imageBrush;
             }
+        }
+
+        public ImageBrush SetWhiteBackground()
+        {
+            BitmapImage bitmapImage;
+            ImageBrush imageBrush;
+
+            bitmapImage = themeMamager.GetWhiteImage();
+            imageBrush = new ImageBrush(bitmapImage);
+            return imageBrush;
+        }
+
+        public ImageBrush SetdarkBackground()
+        {
+            BitmapImage bitmapImage;
+            ImageBrush imageBrush;
+
+            bitmapImage = themeMamager.GetDarkImage();
+            imageBrush = new ImageBrush(bitmapImage);
+            return imageBrush;
         }
     }
 }

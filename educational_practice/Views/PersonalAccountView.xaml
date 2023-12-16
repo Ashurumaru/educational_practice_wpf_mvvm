@@ -6,40 +6,40 @@
         xmlns:local="clr-namespace:educational_practice.ViewModels"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource PersonalAccountWindowStyle}">
+        Style="{StaticResource  PersonalAccountWindowStyle}">
     <Grid>
         <Grid x:Name="BackgroundGrid">
             <Grid.Background>
                 <ImageBrush Stretch="UniformToFill"/>
             </Grid.Background>
         </Grid>
-        <Grid Background="{StaticResource GradientBackgroundBrush}" Opacity="0.5"/>
+        <Grid Background="{DynamicResource  GradientBackgroundBrush}" Opacity="0.5"/>
         <Grid Margin="32, 32">
-            <Border Style="{StaticResource PersonalAccountBorderStyle}"/>
-            <Border Style="{StaticResource PersonalAccountBorderStyle}">
+            <Border Style="{DynamicResource  PersonalAccountBorderStyle}"/>
+            <Border Style="{DynamicResource  PersonalAccountBorderStyle}">
                 <Grid>
-                    <TabControl x:Name="tabControl" Style="{StaticResource TabControlPersonalAccountStyle}" MinHeight="356" MinWidth="706" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
-                        <TabItem Header="Home" Style="{StaticResource PersonalAccountItemStyle}">
+                    <TabControl x:Name="tabControl" Style="{DynamicResource   TabControlPersonalAccountStyle}" MinHeight="356" MinWidth="706" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
+                        <TabItem Header="Home" Style="{DynamicResource   PersonalAccountItemStyle}">
                             <StackPanel>
                                 <TextBlock Text="Кабинет пользователя" FontSize="30" FontWeight="Bold" Margin="0 0 0 20"/>
                                 <TextBlock Text="{Binding CurrentAccessLevelView}" FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
                                 <TextBlock Text="{Binding FIO}" FontSize="12" FontWeight="Bold" Margin="0 0 0 20"/>
                             </StackPanel>
                         </TabItem>
-                        <TabItem Header="Database" Style="{StaticResource PersonalAccountItemStyle}">
+                        <TabItem Header="Database" Style="{DynamicResource  PersonalAccountItemStyle}">
                             <DockPanel>
                                 <Grid DockPanel.Dock="Top">
                                     <StackPanel Visibility="{Binding StackPanelVisibility}" DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 10 0">
-                                        <Button Command="{Binding UpdateUserFormCommand}" Style="{StaticResource IconButtonStyle}" Content="&#xEF58;" FontSize="30" Margin="0 0 0 0"/>
-                                        <Button Command="{Binding DeleteUserCommand}" Style="{StaticResource IconButtonStyle}" Content="&#xE8F8;" FontSize="30" Margin="0 0 0 0" IsEnabled="{Binding CanDeleteUser}"/>
-                                        <Button Command="{Binding AddUserFormCommand}" Style="{StaticResource IconButtonStyle}" Content="&#xE8FA;" FontSize="30" Margin="0 0 0 0"/>
+                                        <Button Command="{Binding UpdateUserFormCommand}" Style="{DynamicResource  IconButtonStyle}" Content="&#xEF58;" FontSize="30" Margin="0 0 0 0"/>
+                                        <Button Command="{Binding DeleteUserCommand}" Style="{DynamicResource  IconButtonStyle}" Content="&#xE8F8;" FontSize="30" Margin="0 0 0 0" IsEnabled="{Binding CanDeleteUser}"/>
+                                        <Button Command="{Binding AddUserFormCommand}" Style="{DynamicResource  IconButtonStyle}" Content="&#xE8FA;" FontSize="30" Margin="0 0 0 0"/>
                                     </StackPanel>
                                     <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Right" Margin="0 0 10 0" VerticalAlignment="Bottom">
-                                        <TextBlock Text="Database: Users" Style="{StaticResource StandartText}" FontSize="20" />
+                                        <TextBlock Text="Database: Users" Style="{DynamicResource  StandartText}" FontSize="20" />
                                     </StackPanel>
                                 </Grid>
                                 <ScrollViewer>
-                                    <DataGrid SelectedItem="{Binding SelectedUser, Mode=TwoWay}" ItemsSource="{Binding Users}" RowStyle="{StaticResource DataGridRowStyle}" RowHeaderStyle="{StaticResource DataGridRowHeaderStyle}" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Style="{StaticResource DataGridStyle}" CellStyle="{StaticResource  DataGridCellStyle}" Cursor="Hand" >
+                                    <DataGrid SelectedItem="{Binding SelectedUser, Mode=TwoWay}" ItemsSource="{Binding Users}" RowStyle="{DynamicResource  DataGridRowStyle}" RowHeaderStyle="{StaticResource DataGridRowHeaderStyle}" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" Style="{StaticResource DataGridStyle}" CellStyle="{StaticResource  DataGridCellStyle}" Cursor="Hand" >
                                         <DataGrid.Columns>
                                             <DataGridTextColumn SelectiveScrollingGrid.SelectiveScrollingOrientation="Horizontal" Width="57" Header="#" Binding="{Binding Id}"/>
                                             <DataGridTextColumn Width="*" Header="FirstName" Binding="{Binding FirstName}"/>
@@ -53,17 +53,20 @@
                             </DockPanel>
                         </TabItem>
 
-                        <TabItem Header="Settings" Style="{StaticResource PersonalAccountItemStyle}">
+                        <TabItem Header="Settings" Style="{DynamicResource  PersonalAccountItemStyle}">
                             <StackPanel>
                                 <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0 10 0 10" >
                                     <TextBlock Text="Выбери стиль:" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    <ComboBox x:Name="cmbBoxStyle" SelectionChanged="ComboBox_SelectionChanged" SelectedItem="{Binding Path=SelectedStyle}" IsSynchronizedWithCurrentItem="True" SelectedIndex="0">
+                                    <ComboBox x:Name="cmbBoxStyle"  IsSynchronizedWithCurrentItem="True" SelectedIndex="0" Style="{StaticResource ComboBoxStyle}">
+                                        <ComboBoxItem>Original</ComboBoxItem>
+                                        <ComboBoxItem>White</ComboBoxItem>
+                                        <ComboBoxItem>Dark</ComboBoxItem>
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
-                                    <CheckBox x:Name="checkBox_image" Style="{StaticResource CheckBoxStyle}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="True" Width="60"/>
+                                    <CheckBox x:Name="checkBox_image" Style="{DynamicResource  CheckBoxStyle}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="True" Width="60"/>
                                     <TextBlock Text="Изображение" Width="190" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    <Button Style="{StaticResource LoadImageButton}" Width="150" Click="btn_loadImage_Click" Content="Загрузить фото" />
+                                    <Button Style="{DynamicResource  LoadImageButton}" Width="150" Click="btn_loadImage_Click" Content="Загрузить фото" />
                                 </StackPanel>
                                 
                                 <!--<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0 10 0 10">
@@ -80,16 +83,16 @@
                         </TabItem>
                     </TabControl>
                     <Grid>
-                        <Button Margin="0 0 0 0" Command="{Binding LogOutCommand}" Content="Log Out" Style="{StaticResource LogOutButtonStyle}"/>
+                        <Button Margin="0 0 0 0" Command="{Binding LogOutCommand}" Content="Log Out" Style="{DynamicResource  LogOutButtonStyle}"/>
                     </Grid>
                 </Grid>
             </Border>
         </Grid>
         <Grid VerticalAlignment="Top">
             <DockPanel Name="titleBar" VerticalAlignment="Top" Height="32" LastChildFill="False" MouseDown="DockPanel_MouseDown" Background="Transparent">
-                <Button Style="{StaticResource CloseButtonStyle}" x:Name="btn_close" Content="&#xE8BB;" Click="btn_close_Click"/>
-                <Button Style="{StaticResource MaxMinButtonStyle}" x:Name="btn_maximize" Content="&#xE922;" Click="btn_maximize_Click"/>
-                <Button Style="{StaticResource MaxMinButtonStyle}" x:Name="btn_minimize" Content="&#xE921;" Click="btn_minimize_Click"/>
+                <Button Style="{DynamicResource  CloseButtonStyle}" x:Name="btn_close" Content="&#xE8BB;" Click="btn_close_Click"/>
+                <Button Style="{DynamicResource  MaxMinButtonStyle}" x:Name="btn_maximize" Content="&#xE922;" Click="btn_maximize_Click"/>
+                <Button Style="{DynamicResource  MaxMinButtonStyle}" x:Name="btn_minimize" Content="&#xE921;" Click="btn_minimize_Click"/>
             </DockPanel>
         </Grid>
     </Grid>
