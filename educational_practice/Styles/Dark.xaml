@@ -5,10 +5,10 @@
     <ImageBrush x:Key="BackgroundBrush" ImageSource="{Binding SelectedImage}" Stretch="UniformToFill"/>
     <SolidColorBrush x:Key="ColorViolet" Color="#9496EC"/>
     <SolidColorBrush x:Key="ColorPink" Color="#ED89D1"/>
-    <SolidColorBrush x:Key="ColorButton" Color="#7701FF"/>
-    <SolidColorBrush x:Key="ColorLightPink" Color="#101828"/>
+    <SolidColorBrush x:Key="ColorButton" Color="#6F01EC"/>
+    <SolidColorBrush x:Key="ColorLightPink" Color="#E6D9F5"/>
     <SolidColorBrush x:Key="ColorPinkMouseOver" Color="#D99CF5"/>
-    <SolidColorBrush x:Key="ColorText" Color="#101828"/>
+    <SolidColorBrush x:Key="ColorText" Color="#E6D9F5"/>
     <SolidColorBrush x:Key="ColorLogInBorder" Opacity="0.5" Color="#101829"/>
     <SolidColorBrush x:Key="ColorButtonPressed" Color="#5F00CD"/>
     <LinearGradientBrush x:Key="GradientBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">

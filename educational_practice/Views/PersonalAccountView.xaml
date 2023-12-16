@@ -68,17 +68,6 @@
                                     <TextBlock Text="Изображение" Width="190" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     <Button Style="{DynamicResource  LoadImageButton}" Width="150" Click="btn_loadImage_Click" Content="Загрузить фото" />
                                 </StackPanel>
-                                
-                                <!--<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0 10 0 10">
-                                    <CheckBox Style="{StaticResource CheckBoxStyle}" IsChecked="True" Width="60"/>
-                                    <TextBlock Text="Изображение" Width="190" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0 10 0 10">
-                                    <CheckBox Style="{StaticResource CheckBoxStyle}" IsChecked="True" Width="60"/>
-                                    <TextBlock Text="Изображение" Width="190" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </StackPanel>-->
-
-                                <!--<Image Source="{Binding SelectedImage}" Stretch="UniformToFill"/>-->
                             </StackPanel>
                         </TabItem>
                     </TabControl>
